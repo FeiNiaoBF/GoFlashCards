@@ -1,0 +1,2 @@
+# GoFlashCards
+一个用go和flutter实现的类Anki项目
