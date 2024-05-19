@@ -2,10 +2,11 @@
 // versions:
 //   sqlc v1.26.0
 
-package tutorial
+package sqlc
 
 import (
 	"context"
+
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 )
