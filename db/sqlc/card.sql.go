@@ -19,8 +19,8 @@ RETURNING id, front, back, know, "add_Time"
 `
 
 type CreateCardsParams struct {
-	Front string
-	Back  string
+	Front string `json:"front"`
+	Back  string `json:"back"`
 }
 
 func (q *Queries) CreateCards(ctx context.Context, arg CreateCardsParams) (Card, error) {
@@ -46,6 +46,37 @@ func (q *Queries) DeleteCards(ctx context.Context, id int64) error {
 	return err
 }
 
+const getAllCard = `-- name: GetAllCard :many
+SELECT id, front, back, know, "add_Time" FROM cards
+ORDER BY id
+`
+
+func (q *Queries) GetAllCard(ctx context.Context) ([]Card, error) {
+	rows, err := q.db.Query(ctx, getAllCard)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Card
+	for rows.Next() {
+		var i Card
+		if err := rows.Scan(
+			&i.ID,
+			&i.Front,
+			&i.Back,
+			&i.Know,
+			&i.AddTime,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getCard = `-- name: GetCard :one
 SELECT id, front, back, know, "add_Time" FROM cards
 WHERE id = $1 LIMIT 1
@@ -67,10 +98,17 @@ func (q *Queries) GetCard(ctx context.Context, id int64) (Card, error) {
 const listCards = `-- name: ListCards :many
 SELECT id, front, back, know, "add_Time" FROM cards
 ORDER BY id
+LIMIT $1
+OFFSET $2
 `
 
-func (q *Queries) ListCards(ctx context.Context) ([]Card, error) {
-	rows, err := q.db.Query(ctx, listCards)
+type ListCardsParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListCards(ctx context.Context, arg ListCardsParams) ([]Card, error) {
+	rows, err := q.db.Query(ctx, listCards, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -104,9 +142,9 @@ RETURNING id, front, back, know, "add_Time"
 `
 
 type UpdateCardsParams struct {
-	ID    int64
-	Front string
-	Back  string
+	ID    int64  `json:"id"`
+	Front string `json:"front"`
+	Back  string `json:"back"`
 }
 
 func (q *Queries) UpdateCards(ctx context.Context, arg UpdateCardsParams) (Card, error) {

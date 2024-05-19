@@ -2,9 +2,15 @@
 SELECT * FROM cards
 WHERE id = $1 LIMIT 1;
 
--- name: ListCards :many
+-- name: GetAllCard :many
 SELECT * FROM cards
 ORDER BY id;
+
+-- name: ListCards :many
+SELECT * FROM cards
+ORDER BY id
+LIMIT $1
+OFFSET $2;
 
 -- name: CreateCards :one
 INSERT INTO cards (

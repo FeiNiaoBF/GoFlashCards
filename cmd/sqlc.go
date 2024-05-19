@@ -12,7 +12,7 @@ import (
 func run() error {
 	ctx := context.Background()
 
-	conn, err := pgx.Connect(ctx, "user=root dbname=anki sslmode=verify-full")
+	conn, err := pgx.Connect(ctx, "postgresql://root:secret@localhost:5432/anki?sslmode=disable")
 	if err != nil {
 		return err
 	}

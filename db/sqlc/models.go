@@ -9,19 +9,19 @@ import (
 )
 
 type Card struct {
-	ID      int64
-	Front   string
-	Back    string
-	Know    bool
-	AddTime pgtype.Timestamptz
+	ID      int64              `json:"id"`
+	Front   string             `json:"front"`
+	Back    string             `json:"back"`
+	Know    bool               `json:"know"`
+	AddTime pgtype.Timestamptz `json:"add_Time"`
 }
 
 type CardTag struct {
-	CardsID int64
-	TagsID  int32
+	CardsID int64 `json:"cards_id"`
+	TagsID  int32 `json:"tags_id"`
 }
 
 type Tag struct {
-	ID   int32
-	Name string
+	ID   int32  `json:"id"`
+	Name string `json:"name"`
 }
