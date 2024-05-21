@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"context"
@@ -7,13 +7,15 @@ import (
 	"reflect"
 
 	"github.com/jackc/pgx/v5"
+	"testing"
 )
 
 const (
 	dbSource = "postgresql://root:secret@localhost:5432/anki?sslmode=disable"
 )
 
-func run() error {
+func TestSQL(t *testing.T) {
+
 	ctx := context.Background()
 	conn, err := pgx.Connect(ctx, dbSource)
 	if err != nil {
@@ -47,5 +49,5 @@ func run() error {
 
 	// prints true
 	log.Println(reflect.DeepEqual(insertedCards, fetchedCards))
-	return nil
+
 }

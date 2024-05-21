@@ -7,6 +7,8 @@ package sqlc
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createCards = `-- name: CreateCards :one
@@ -77,6 +79,50 @@ func (q *Queries) GetAllCard(ctx context.Context) ([]Card, error) {
 	return items, nil
 }
 
+const getAllCardsWithTags = `-- name: GetAllCardsWithTags :many
+SELECT c.id, c.front, c.back, c.know, c."add_Time", t.name AS tag_name
+FROM cards c
+         LEFT JOIN card_tags ct ON c.id = ct.cards_id
+         LEFT JOIN tags t ON ct.tags_id = t.id
+ORDER BY c.id
+`
+
+type GetAllCardsWithTagsRow struct {
+	ID      int64              `json:"id"`
+	Front   string             `json:"front"`
+	Back    string             `json:"back"`
+	Know    bool               `json:"know"`
+	AddTime pgtype.Timestamptz `json:"add_Time"`
+	TagName pgtype.Text        `json:"tag_name"`
+}
+
+func (q *Queries) GetAllCardsWithTags(ctx context.Context) ([]GetAllCardsWithTagsRow, error) {
+	rows, err := q.db.Query(ctx, getAllCardsWithTags)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetAllCardsWithTagsRow
+	for rows.Next() {
+		var i GetAllCardsWithTagsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Front,
+			&i.Back,
+			&i.Know,
+			&i.AddTime,
+			&i.TagName,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getCard = `-- name: GetCard :one
 SELECT id, front, back, know, "add_Time" FROM cards
 WHERE id = $1 LIMIT 1
@@ -93,6 +139,58 @@ func (q *Queries) GetCard(ctx context.Context, id int64) (Card, error) {
 		&i.AddTime,
 	)
 	return i, err
+}
+
+const getCardByTag = `-- name: GetCardByTag :many
+SELECT c.id, front, back, know, "add_Time", cards_id, tags_id, t.id, name
+FROM cards c
+JOIN card_tags ct
+    ON c.id = ct.cards_id
+JOIN tags t
+    ON t.id = ct.tags_id
+WHERE t.id = $1
+`
+
+type GetCardByTagRow struct {
+	ID      int64              `json:"id"`
+	Front   string             `json:"front"`
+	Back    string             `json:"back"`
+	Know    bool               `json:"know"`
+	AddTime pgtype.Timestamptz `json:"add_Time"`
+	CardsID int64              `json:"cards_id"`
+	TagsID  int32              `json:"tags_id"`
+	ID_2    int32              `json:"id_2"`
+	Name    string             `json:"name"`
+}
+
+func (q *Queries) GetCardByTag(ctx context.Context, id int32) ([]GetCardByTagRow, error) {
+	rows, err := q.db.Query(ctx, getCardByTag, id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetCardByTagRow
+	for rows.Next() {
+		var i GetCardByTagRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Front,
+			&i.Back,
+			&i.Know,
+			&i.AddTime,
+			&i.CardsID,
+			&i.TagsID,
+			&i.ID_2,
+			&i.Name,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const listCards = `-- name: ListCards :many

@@ -30,3 +30,19 @@ RETURNING *;
 -- name: DeleteCards :exec
 DELETE FROM cards
 WHERE id = $1;
+
+-- name: GetCardByTag :many
+SELECT *
+FROM cards c
+JOIN card_tags ct
+    ON c.id = ct.cards_id
+JOIN tags t
+    ON t.id = ct.tags_id
+WHERE t.id = $1;
+
+-- name: GetAllCardsWithTags :many
+SELECT c.*, t.name AS tag_name
+FROM cards c
+         LEFT JOIN card_tags ct ON c.id = ct.cards_id
+         LEFT JOIN tags t ON ct.tags_id = t.id
+ORDER BY c.id;
