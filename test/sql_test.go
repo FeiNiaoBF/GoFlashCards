@@ -14,9 +14,12 @@ const (
 	dbSource = "postgresql://root:secret@localhost:5432/anki?sslmode=disable"
 )
 
-func TestSQL(t *testing.T) {
+var testQueries *sqlc.Queries
 
+func TestSQL(t *testing.T) {
+	//var testQueries *sqlc.Queries
 	ctx := context.Background()
+
 	conn, err := pgx.Connect(ctx, dbSource)
 	if err != nil {
 		log.Fatal("cannot connect to database: ", err)
@@ -28,10 +31,10 @@ func TestSQL(t *testing.T) {
 		}
 	}(conn, ctx)
 
-	queries := sqlc.New(conn)
+	testQueries = sqlc.New(conn)
 
 	// create a card
-	insertedCards, err := queries.CreateCards(ctx, sqlc.CreateCardsParams{
+	insertedCards, err := testQueries.CreateCards(ctx, sqlc.CreateCardsParams{
 		Front: "test",
 		Back:  "test",
 	})
@@ -42,7 +45,7 @@ func TestSQL(t *testing.T) {
 
 	// get a card by id
 
-	fetchedCards, err := queries.GetCard(ctx, insertedCards.ID)
+	fetchedCards, err := testQueries.GetCard(ctx, insertedCards.ID)
 	if err != nil {
 		log.Fatal("cannot get a card: ", err)
 	}
