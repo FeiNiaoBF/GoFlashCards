@@ -2,11 +2,8 @@ package main
 
 import (
 	"context"
-	"github.com/FeiNiaoBF/GoFlashCards/db/sqlc"
-	"log"
-	"reflect"
-
 	"github.com/jackc/pgx/v5"
+	"log"
 )
 
 const (
@@ -26,26 +23,5 @@ func run() error {
 		}
 	}(conn, ctx)
 
-	queries := sqlc.New(conn)
-
-	// create a card
-	insertedCards, err := queries.CreateCards(ctx, sqlc.CreateCardsParams{
-		Front: "test",
-		Back:  "test",
-	})
-	if err != nil {
-		log.Fatal("cannot create a card: ", err)
-	}
-	log.Println(insertedCards)
-
-	// get a card by id
-
-	fetchedCards, err := queries.GetCard(ctx, insertedCards.ID)
-	if err != nil {
-		log.Fatal("cannot get a card: ", err)
-	}
-
-	// prints true
-	log.Println(reflect.DeepEqual(insertedCards, fetchedCards))
 	return nil
 }
