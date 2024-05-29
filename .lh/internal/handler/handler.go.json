@@ -1,0 +1,42 @@
+{
+    "sourceFile": "internal/handler/handler.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1717024932358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717025064704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,4 @@\n package handler\n+\n+\n+func \n"
+                },
+                {
+                    "date": 1717025071807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n package handler\n \n \n-func \n+func indexHandler() {\n+}\n"
+                },
+                {
+                    "date": 1717025082778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n package handler\n \n \n-func indexHandler() {\n+func indexHandler(c echo.Context) {\n+\n }\n"
+                },
+                {
+                    "date": 1717025090634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n package handler\n \n+import \"github.com/labstack/echo\"\n \n-func indexHandler(c echo.Context) {\n \n+func indexHandler(c echo.Context) error {\n+\treturn c.String(200, \"Hello, World!\")\n }\n"
+                },
+                {
+                    "date": 1717025097098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,12 @@\n package handler\n \n-import \"github.com/labstack/echo\"\n+import (\n+\t\"net/http\"\n \n+\t\"github.com/labstack/echo/v4\"\n+)\n \n+\n func indexHandler(c echo.Context) error {\n-\treturn c.String(200, \"Hello, World!\")\n+\treturn c.String(http.StatusOK, \"Hello, World!\")\n }\n"
+                },
+                {
+                    "date": 1717025167511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n \t\"github.com/labstack/echo/v4\"\n )\n \n \n-func indexHandler(c echo.Context) error {\n+func IndexHandler(c echo.Context) error {\n \treturn c.String(http.StatusOK, \"Hello, World!\")\n }\n"
+                }
+            ],
+            "date": 1717024932358,
+            "name": "Commit-0",
+            "content": "package handler\n"
+        }
+    ]
+}

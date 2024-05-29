@@ -1,0 +1,18 @@
+{
+    "sourceFile": "db/sqlc/store.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1717026479553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1717026479553,
+            "name": "Commit-0",
+            "content": "package sqlc\n\nimport (\n\t\"github.com/jackc/pgx/v5\"\n)\n\n\n"
+        }
+    ]
+}

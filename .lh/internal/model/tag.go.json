@@ -1,0 +1,38 @@
+{
+    "sourceFile": "internal/model/tag.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1717024971847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717025462500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,21 @@\n package model\n+\n+import \"time\"\n+type CradReq struct {\n+\tId      int       `json:\"id\"`\n+\tFront   string    `json:\"front\"`\n+\tBack    string    `json:\"back\"`\n+\tKnow    bool      `json:\"know\"`\n+\tTags_id int       `json:\"tags_id\"`\n+\tAddTime time.Time `json:\"add_time\"`\n+}\n+\n+\n+type CradResp struct {\n+\tId      int       `json:\"id\"`\n+\tFront   string    `json:\"front\"`\n+\tBack    string    `json:\"back\"`\n+\tKnow    bool      `json:\"know\"`\n+\tTags_id int       `json:\"tags_id\"`\n+\tAddTime time.Time `json:\"add_time\"`\n+}\n"
+                },
+                {
+                    "date": 1717025471018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package model\n \n import \"time\"\n-type CradReq struct {\n+type TagReq struct {\n \tId      int       `json:\"id\"`\n \tFront   string    `json:\"front\"`\n \tBack    string    `json:\"back\"`\n \tKnow    bool      `json:\"know\"`\n@@ -10,9 +10,9 @@\n \tAddTime time.Time `json:\"add_time\"`\n }\n \n \n-type CradResp struct {\n+type TagRResp struct {\n \tId      int       `json:\"id\"`\n \tFront   string    `json:\"front\"`\n \tBack    string    `json:\"back\"`\n \tKnow    bool      `json:\"know\"`\n"
+                },
+                {
+                    "date": 1717025478339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,12 +10,8 @@\n \tAddTime time.Time `json:\"add_time\"`\n }\n \n \n-type TagRResp struct {\n+type TagResp struct {\n \tId      int       `json:\"id\"`\n-\tFront   string    `json:\"front\"`\n-\tBack    string    `json:\"back\"`\n-\tKnow    bool      `json:\"know\"`\n-\tTags_id int       `json:\"tags_id\"`\n-\tAddTime time.Time `json:\"add_time\"`\n+\tName   string    `json:\"front\"`\n }\n"
+                },
+                {
+                    "date": 1717025486300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,11 @@\n package model\n-\n-import \"time\"\n type TagReq struct {\n \tId      int       `json:\"id\"`\n-\tFront   string    `json:\"front\"`\n-\tBack    string    `json:\"back\"`\n-\tKnow    bool      `json:\"know\"`\n-\tTags_id int       `json:\"tags_id\"`\n-\tAddTime time.Time `json:\"add_time\"`\n+\tName   string    `json:\"name\"`\n }\n \n \n type TagResp struct {\n \tId      int       `json:\"id\"`\n-\tName   string    `json:\"front\"`\n+\tName   string    `json:\"name\"`\n }\n"
+                },
+                {
+                    "date": 1717025554090,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n package model\n+\n type TagReq struct {\n-\tId      int       `json:\"id\"`\n-\tName   string    `json:\"name\"`\n+\tId   int    `json:\"id\"`\n+\tName string `json:\"name\"`\n }\n \n-\n type TagResp struct {\n-\tId      int       `json:\"id\"`\n-\tName   string    `json:\"name\"`\n+\tId   int    `json:\"id\"`\n+\tName string `json:\"name\"`\n }\n"
+                }
+            ],
+            "date": 1717024971847,
+            "name": "Commit-0",
+            "content": "package model\n"
+        }
+    ]
+}

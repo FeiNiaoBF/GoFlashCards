@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 23,
             "patches": [
                 {
                     "date": 1716995208707,
@@ -40,6 +40,66 @@
                 {
                     "date": 1716995303356,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,6 @@\n package main\n \n-import (\n-\n-)\n-\n func main() {\n \tcmd.RunServer()\n \tcmd.RunSQL()\n }\n"
+                },
+                {
+                    "date": 1717025125907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,32 @@\n package main\n \n+import (\n+\t\"context\"\n+\t\"github.com/FeiNiaoBF/GoFlashCards/cmd\"\n+\t\"github.com/FeiNiaoBF/GoFlashCards/cmd/echo\"\n+\t\"github.com/jackc/pgx/v5\"\n+\t\"log\"\n+)\n+\n+const (\n+\tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n+)\n+\n func main() {\n-\tcmd.RunServer()\n-\tcmd.RunSQL()\n+\tctx := context.Background()\n+\tconn, err := pgx.Connect(ctx, dbSource)\n+\n+\tif err != nil {\n+\t\tlog.Fatal(\"cannot connect to database: \", err)\n+\t}\n+\n+\tdefer func(conn *pgx.Conn, ctx context.Context) {\n+\t\terr := conn.Close(ctx)\n+\t\tif err != nil {\n+\t\t\tlog.Fatal(\"cannot close database: \", err)\n+\t\t}\n+\t}(conn, ctx)\n+\n+\tserver := cmd.NewServer(conn)\n+\t\n }\n"
+                },
+                {
+                    "date": 1717025131957,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,7 +26,8 @@\n \t\t\tlog.Fatal(\"cannot close database: \", err)\n \t\t}\n \t}(conn, ctx)\n \n-\tserver := cmd.NewServer(conn)\n+\n \t\n+\n }\n"
+                },
+                {
+                    "date": 1717025139616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,14 @@\n package main\n \n import (\n \t\"context\"\n+\t\"log\"\n+\n \t\"github.com/FeiNiaoBF/GoFlashCards/cmd\"\n \t\"github.com/FeiNiaoBF/GoFlashCards/cmd/echo\"\n \t\"github.com/jackc/pgx/v5\"\n-\t\"log\"\n+\t\"github.com/labstack/echo/v4\"\n )\n \n const (\n \tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n@@ -27,7 +29,7 @@\n \t\t}\n \t}(conn, ctx)\n \n \n-\t\n+\te := echo.New\n \n }\n"
+                },
+                {
+                    "date": 1717025149767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n import (\n \t\"context\"\n \t\"log\"\n \n-\t\"github.com/FeiNiaoBF/GoFlashCards/cmd\"\n \t\"github.com/FeiNiaoBF/GoFlashCards/cmd/echo\"\n \t\"github.com/jackc/pgx/v5\"\n \t\"github.com/labstack/echo/v4\"\n )\n@@ -29,7 +28,8 @@\n \t\t}\n \t}(conn, ctx)\n \n \n-\te := echo.New\n+\te := echo.New()\n+\te.Logger.Fatal(e.Start(\":1323\"))\n \n }\n"
+                },
+                {
+                    "date": 1717025157040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,7 +29,8 @@\n \t}(conn, ctx)\n \n \n \te := echo.New()\n+\te.GET(\"/\", handler.indexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n \n }\n"
+                },
+                {
+                    "date": 1717025175163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,8 @@\n \t}(conn, ctx)\n \n \n \te := echo.New()\n-\te.GET(\"/\", handler.indexHandler)\n+\te.GET(\"/\", IndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n \n }\n"
+                },
+                {
+                    "date": 1717025185507,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,8 @@\n \t}(conn, ctx)\n \n \n \te := echo.New()\n-\te.GET(\"/\", IndexHandler)\n+\te.GET(\"/\", hanIndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n \n }\n"
+                },
+                {
+                    "date": 1717025192246,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n \t\"context\"\n \t\"log\"\n \n \t\"github.com/FeiNiaoBF/GoFlashCards/cmd/echo\"\n+\t\"github.com/FeiNiaoBF/GoFlashCards/internal/handler\"\n \t\"github.com/jackc/pgx/v5\"\n \t\"github.com/labstack/echo/v4\"\n )\n \n@@ -29,8 +30,8 @@\n \t}(conn, ctx)\n \n \n \te := echo.New()\n-\te.GET(\"/\", hanIndexHandler)\n+\te.GET(\"/\", handler.IndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n \n }\n"
+                },
+                {
+                    "date": 1717025221196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n import (\n \t\"context\"\n \t\"log\"\n \n-\t\"github.com/FeiNiaoBF/GoFlashCards/cmd/echo\"\n \t\"github.com/FeiNiaoBF/GoFlashCards/internal/handler\"\n \t\"github.com/jackc/pgx/v5\"\n \t\"github.com/labstack/echo/v4\"\n )\n@@ -16,9 +15,8 @@\n \n func main() {\n \tctx := context.Background()\n \tconn, err := pgx.Connect(ctx, dbSource)\n-\n \tif err != nil {\n \t\tlog.Fatal(\"cannot connect to database: \", err)\n \t}\n \n@@ -28,10 +26,8 @@\n \t\t\tlog.Fatal(\"cannot close database: \", err)\n \t\t}\n \t}(conn, ctx)\n \n-\n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n-\n }\n"
+                },
+                {
+                    "date": 1717026545069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,20 +13,9 @@\n \tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n )\n \n func main() {\n-\tctx := context.Background()\n-\tconn, err := pgx.Connect(ctx, dbSource)\n-\tif err != nil {\n-\t\tlog.Fatal(\"cannot connect to database: \", err)\n-\t}\n \n-\tdefer func(conn *pgx.Conn, ctx context.Context) {\n-\t\terr := conn.Close(ctx)\n-\t\tif err != nil {\n-\t\t\tlog.Fatal(\"cannot close database: \", err)\n-\t\t}\n-\t}(conn, ctx)\n \n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n"
+                },
+                {
+                    "date": 1717026565940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,11 +8,8 @@\n \t\"github.com/jackc/pgx/v5\"\n \t\"github.com/labstack/echo/v4\"\n )\n \n-const (\n-\tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n-)\n \n func main() {\n \n \n"
+                },
+                {
+                    "date": 1717026676118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,8 @@\n )\n \n \n func main() {\n-\n-\n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n \te.Logger.Fatal(e.Start(\":1323\"))\n }\n"
+                },
+                {
+                    "date": 1717026681614,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,11 @@\n )\n \n \n func main() {\n+\t\n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n+\n+\n \te.Logger.Fatal(e.Start(\":1323\"))\n }\n"
+                },
+                {
+                    "date": 1717026689085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n )\n \n \n func main() {\n-\t\n+\tsto\n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n \n \n"
+                },
+                {
+                    "date": 1717026695791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,20 +1,15 @@\n package main\n \n import (\n-\t\"context\"\n-\t\"log\"\n-\n \t\"github.com/FeiNiaoBF/GoFlashCards/internal/handler\"\n-\t\"github.com/jackc/pgx/v5\"\n+\t\"github.com/FeiNiaoBF/GoFlashCards/internal/store\"\n \t\"github.com/labstack/echo/v4\"\n )\n \n \n func main() {\n-\tsto\n+\tstore.Run()\n \te := echo.New()\n \te.GET(\"/\", handler.IndexHandler)\n-\n-\n \te.Logger.Fatal(e.Start(\":1323\"))\n }\n"
                 }
             ],
             "date": 1716995208707,

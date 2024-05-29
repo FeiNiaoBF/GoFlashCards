@@ -1,33 +1,16 @@
 package main
 
 import (
-	"context"
-	"github.com/FeiNiaoBF/GoFlashCards/cmd"
-	"github.com/FeiNiaoBF/GoFlashCards/cmd/echo"
-	"github.com/jackc/pgx/v5"
-	"log"
+	"github.com/FeiNiaoBF/GoFlashCards/internal/handler"
+	"github.com/FeiNiaoBF/GoFlashCards/internal/store"
+	"github.com/labstack/echo/v4"
 )
 
-const (
-	dbSource = "postgresql://root:secret@localhost:5432/anki?sslmode=disable"
-)
 
 func main() {
-	ctx := context.Background()
-	conn, err := pgx.Connect(ctx, dbSource)
+	store.Run()
 
-	if err != nil {
-		log.Fatal("cannot connect to database: ", err)
-	}
-
-	defer func(conn *pgx.Conn, ctx context.Context) {
-		err := conn.Close(ctx)
-		if err != nil {
-			log.Fatal("cannot close database: ", err)
-		}
-	}(conn, ctx)
-
-	server := cmd.NewServer(conn)
-	echo.Set(server, ctx)
-	echo.Run()
+	e := echo.New()
+	e.GET("/", handler.IndexHandler)
+	e.Logger.Fatal(e.Start(":1323"))
 }
