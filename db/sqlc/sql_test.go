@@ -2,10 +2,11 @@ package sqlc
 
 import (
 	"context"
-	"github.com/jackc/pgx/v5"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/jackc/pgx/v5"
 )
 
 const (

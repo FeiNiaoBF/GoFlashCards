@@ -1,0 +1,90 @@
+{
+    "sourceFile": "db/sqlc/tags_tast.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 18,
+            "patches": [
+                {
+                    "date": 1716989146114,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1716989151933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n package sqlc\n \n-func TestCreateCards(t *testing.T) {\n+func TestCreateTa(t *testing.T) {\n \t// create a card\n \targ := CreateCardsParams{\n \t\tFront: util.RandText(10),\n \t\tBack:  util.RandText(10),\n"
+                },
+                {
+                    "date": 1716989157343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,15 @@\n package sqlc\n \n-func TestCreateTa(t *testing.T) {\n+import (\n+\t\"context\"\n+\t\"testing\"\n+\n+\t\"github.com/FeiNiaoBF/GoFlashCards/util\"\n+\t\"github.com/stretchr/testify/require\"\n+)\n+\n+func TestCreateTags(t *testing.T) {\n \t// create a card\n \targ := CreateCardsParams{\n \t\tFront: util.RandText(10),\n \t\tBack:  util.RandText(10),\n"
+                },
+                {
+                    "date": 1716989163329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,12 +9,9 @@\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := CreateCardsParams{\n-\t\tFront: util.RandText(10),\n-\t\tBack:  util.RandText(10),\n-\t}\n+\targ := C\n \n \tcard, err := testQueries.CreateCards(context.Background(), arg)\n \t// [testify package](https://github.com/stretchr/testify)\n \trequire.NoError(t, err)\n"
+                },
+                {
+                    "date": 1716989173957,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := C\n+\targ := CreateCardsParams\n \n \tcard, err := testQueries.CreateCards(context.Background(), arg)\n \t// [testify package](https://github.com/stretchr/testify)\n \trequire.NoError(t, err)\n"
+                },
+                {
+                    "date": 1716989225532,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,12 +11,5 @@\n func TestCreateTags(t *testing.T) {\n \t// create a card\n \targ := CreateCardsParams\n \n-\tcard, err := testQueries.CreateCards(context.Background(), arg)\n-\t// [testify package](https://github.com/stretchr/testify)\n-\trequire.NoError(t, err)\n-\trequire.NotEmpty(t, card)\n-\t// content\n-\trequire.Equal(t, arg.Front, card.Front)\n-\trequire.Equal(t, arg.Back, card.Back)\n }\n"
+                },
+                {
+                    "date": 1716989232871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,7 @@\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := CreateCardsParams\n+\targ := \n \n }\n"
+                },
+                {
+                    "date": 1716989243234,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,7 @@\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := \n+\targ := RandText\n \n }\n"
+                },
+                {
+                    "date": 1716989252104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,11 @@\n package sqlc\n \n import (\n-\t\"context\"\n \t\"testing\"\n-\n-\t\"github.com/FeiNiaoBF/GoFlashCards/util\"\n-\t\"github.com/stretchr/testify/require\"\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := RandText\n+\targ := utRandText(10)\n \n }\n"
+                },
+                {
+                    "date": 1716989258011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,13 @@\n package sqlc\n \n import (\n \t\"testing\"\n+\n+\t\"github.com/FeiNiaoBF/GoFlashCards/util\"\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := utRandText(10)\n+\targ := util.RandText(10)RandText(10)\n \n }\n"
+                },
+                {
+                    "date": 1716989265992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,7 +7,9 @@\n )\n \n func TestCreateTags(t *testing.T) {\n \t// create a card\n-\targ := util.RandText(10)RandText(10)\n+\targ := util.RandText(10)\n \n+\t// create a tag\n+\t\n }\n"
+                },
+                {
+                    "date": 1716989273746,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,10 @@\n \t\"github.com/FeiNiaoBF/GoFlashCards/util\"\n )\n \n func TestCreateTags(t *testing.T) {\n-\t// create a card\n-\targ := util.RandText(10)\n \n+\ttag := util.RandText(10)\n+\n \t// create a tag\n-\t\n+\n }\n"
+                },
+                {
+                    "date": 1716989281567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n package sqlc\n \n import (\n+\t\"context\"\n \t\"testing\"\n \n \t\"github.com/FeiNiaoBF/GoFlashCards/util\"\n )\n@@ -10,6 +11,7 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\n+\t_, err := testQueries.CreateTag(context.Background(), tag)\n+\t\n }\n"
+                },
+                {
+                    "date": 1716989331926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,6 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\t_, err := testQueries.CreateTag(context.Background(), tag)\n-\t\n+\t_, err := tes\n }\n"
+                },
+                {
+                    "date": 1716989337960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\t_, err := tes\n+\t_, err := testQueries.CreateTags(context.Background(), tag)\n }\n"
+                },
+                {
+                    "date": 1716989357596,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\t_, err := testQueries.CreateTags(context.Background(), tag)\n+\tcard, err := testQueries.CreateCards(context.Background(), arg)\n }\n"
+                },
+                {
+                    "date": 1716989421645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\tcard, err := testQueries.CreateCards(context.Background(), arg)\n+\tcard, err := testQueries.CreateTags(context.Background(), arg)\n }\n"
+                },
+                {
+                    "date": 1716989429620,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n \n \ttag := util.RandText(10)\n \n \t// create a tag\n-\tcard, err := testQueries.CreateTags(context.Background(), arg)\n+\ttag, err := testQueries.CreateTags(context.Background(), arg)\n }\n"
+                },
+                {
+                    "date": 1716989440469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n \n \tname := util.RandText(10)\n \n \t// create a tag\n-\ttag, err := testQueries.CreateTags(context.Background(), n)\n+\ttag, err := testQueries.CreateTags(context.Background(), na)\n }\n"
+                }
+            ],
+            "date": 1716989146114,
+            "name": "Commit-0",
+            "content": "package sqlc\n\nfunc TestCreateCards(t *testing.T) {\n\t// create a card\n\targ := CreateCardsParams{\n\t\tFront: util.RandText(10),\n\t\tBack:  util.RandText(10),\n\t}\n\n\tcard, err := testQueries.CreateCards(context.Background(), arg)\n\t// [testify package](https://github.com/stretchr/testify)\n\trequire.NoError(t, err)\n\trequire.NotEmpty(t, card)\n\t// content\n\trequire.Equal(t, arg.Front, card.Front)\n\trequire.Equal(t, arg.Back, card.Back)\n}\n"
+        }
+    ]
+}

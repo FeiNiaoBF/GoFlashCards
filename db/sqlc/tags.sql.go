@@ -27,7 +27,7 @@ DELETE FROM tags
 WHERE id = $1
 `
 
-func (q *Queries) DeleteTags(ctx context.Context, id int32) error {
+func (q *Queries) DeleteTags(ctx context.Context, id int64) error {
 	_, err := q.db.Exec(ctx, deleteTags, id)
 	return err
 }
@@ -62,7 +62,7 @@ SELECT id, name FROM tags
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetTags(ctx context.Context, id int32) (Tag, error) {
+func (q *Queries) GetTags(ctx context.Context, id int64) (Tag, error) {
 	row := q.db.QueryRow(ctx, getTags, id)
 	var i Tag
 	err := row.Scan(&i.ID, &i.Name)
@@ -109,7 +109,7 @@ RETURNING id, name
 `
 
 type UpdateTagsParams struct {
-	ID   int32  `json:"id"`
+	ID   int64  `json:"id"`
 	Name string `json:"name"`
 }
 

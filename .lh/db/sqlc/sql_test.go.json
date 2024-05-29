@@ -1,0 +1,18 @@
+{
+    "sourceFile": "db/sqlc/sql_test.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1716989372950,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1716989372950,
+            "name": "Commit-0",
+            "content": "package sqlc\n\nimport (\n\t\"context\"\n\t\"log\"\n\t\"os\"\n\t\"testing\"\n\n\t\"github.com/jackc/pgx/v5\"\n)\n\nconst (\n\tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n)\n\nvar testQueries *Queries\n\nfunc TestMain(m *testing.M) {\n\t//var testQueries *sqlc.Queries\n\tctx := context.Background()\n\n\tconn, err := pgx.Connect(ctx, dbSource)\n\tif err != nil {\n\t\tlog.Fatal(\"cannot connect to database: \", err)\n\t}\n\tdefer func(conn *pgx.Conn, ctx context.Context) {\n\t\terr := conn.Close(ctx)\n\t\tif err != nil {\n\t\t\tlog.Fatal(\"cannot close database: \", err)\n\t\t}\n\t}(conn, ctx)\n\n\ttestQueries = New(conn)\n\tos.Exit(m.Run())\n}\n"
+        }
+    ]
+}
