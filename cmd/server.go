@@ -1,21 +1,20 @@
-package main
+package cmd
 
 import (
-	"log"
-
+	"github.com/FeiNiaoBF/GoFlashCards/db/sqlc"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/github"
+	"github.com/jackc/pgx/v5"
 )
 
-func main() {
+type Server struct {
 	// SQL
-	if err := run(); err != nil {
-		log.Fatal(err)
-	}
+	Store sqlc.Store
+}
 
-	//e := echo.New()
-	//e.GET("/", func(c echo.Context) error {
-	//	return c.String(http.StatusOK, "Hello, World!")
-	//})
-	//e.Logger.Fatal(e.Start(":1323"))
+func NewServer(conn *pgx.Conn) *Server {
+	server := &Server{
+		Store: sqlc.NewStore(conn),
+	}
+	return server
 }

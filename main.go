@@ -1,17 +1,18 @@
-package cmd
+package main
 
 import (
 	"context"
-	"log"
-
+	"github.com/FeiNiaoBF/GoFlashCards/cmd"
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/echo"
 	"github.com/jackc/pgx/v5"
+	"log"
 )
 
 const (
 	dbSource = "postgresql://root:secret@localhost:5432/anki?sslmode=disable"
 )
 
-func RunSQL() error {
+func main() {
 	ctx := context.Background()
 	conn, err := pgx.Connect(ctx, dbSource)
 
@@ -26,5 +27,7 @@ func RunSQL() error {
 		}
 	}(conn, ctx)
 
-	return nil
+	server := cmd.NewServer(conn)
+	echo.Set(server, ctx)
+	echo.Run()
 }

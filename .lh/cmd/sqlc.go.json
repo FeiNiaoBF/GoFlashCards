@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1716988679235,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1716995234154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n const (\n \tdbSource = \"postgresql://root:secret@localhost:5432/anki?sslmode=disable\"\n )\n \n-func runSQ() error {\n+func runSQL() error {\n \tctx := context.Background()\n \tconn, err := pgx.Connect(ctx, dbSource)\n \tif err != nil {\n \t\tlog.Fatal(\"cannot connect to database: \", err)\n"
                 }
             ],
             "date": 1716988679235,
