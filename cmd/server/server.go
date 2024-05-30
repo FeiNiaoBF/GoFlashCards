@@ -8,6 +8,7 @@ import (
 	"github.com/FeiNiaoBF/GoFlashCards/db/sqlc"
 	"github.com/FeiNiaoBF/GoFlashCards/util"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type Server struct {
@@ -22,37 +23,35 @@ func NewServer(config util.Config, store *sqlc.Queries) *Server {
 		store:  store,
 	}
 	server.setRouter()
+
 	return server
 }
 
-type user struct {
-	ID string `query:"id" json:"id" form:"id"`
-}
-
+// setRouter
 func (server *Server) setRouter() {
 	router := echo.New()
+	// middleware
+	router.Use(middleware.Logger())
 
 	router.GET("/", handler.Home)
+	// card group
+	
 	router.POST("/card", server.createCards)
-	// router.POST("/users/login", server.loginUser)
+	router.GET("/card/:id", server.getCards)
+	router.PUT("/card/:id", server.updateCard)
+	router.DELETE("/card/:id", server.deleteCard)
 	// router.POST("/tokens/renew_access", server.renewAccessToken)
-	router.POST("/users", func(c echo.Context) error {
-		// in the handler for /users?id=<userID>
-		var user user
-		err := c.Bind(&user)
-		if err != nil {
-			return c.String(http.StatusBadRequest, "bad request")
-		}
-		return c.JSON(http.StatusOK, user)
-	})
+	// router.GET("/tags", server.getTags)
 	server.router = router
 }
 
+// Run starts the server
 func (server *Server) Run() {
 	serverAddr := fmt.Sprintf("%s:%s", server.config.ServerAddress, server.config.ServerPort)
 	server.router.Start(serverAddr)
 }
 
+// errorRequest is a helper function to handle errors
 func (server *Server) errorRequest(c echo.Context, err error) error {
 	return c.JSON(http.StatusInternalServerError, echo.Map{
 		"error": err.Error(),

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "ui/templates/layout.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1717053099101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1717053099101,
+            "name": "Commit-0",
+            "content": "<!doctype html>\r\n<html>\r\n<head>\r\n    <title>Anki Flash Cards</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\"\r\n          integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\r\n    <link rel=stylesheet type=text/css href=\"{{ url_for('static', filename='style.css') }}\"/>\r\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"{{ url_for('static', filename='highlight-theme-github.css') }}\" />\r\n    <script src=\"{{ url_for('static', filename='highlight.pack.js') }}\"></script>\r\n</head>\r\n<body>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-xs-12\">\r\n\r\n                <br/>\r\n                <nav class=\"navbar navbar-default\">\r\n                    <div class=\"navbar-header\">\r\n                        <a class=\"navbar-brand\" href=\"{{ url_for('index') }}\">CS Flash Cards</a>\r\n\r\n                        <ul class=\"nav navbar-nav navbar-right\">\r\n                            {% if not session.logged_in %}\r\n                                <li><a href=\"{{ url_for('login') }}\">log in</a></li>\r\n                            {% else %}\r\n                                <li><a href=\"{{ url_for('cards') }}\">cards</a></li>\r\n                                <li><a href=\"{{ url_for('tags') }}\">tags</a></li>\r\n                                <li><a href=\"{{ url_for('show') }}\">show</a></li>\r\n                                <li><a href=\"{{ url_for('list_db') }}\">list database</a></li>\r\n                                <li><a href=\"{{ url_for('create_db') }}\">create database</a></li>\r\n                                <li><a href=\"{{ url_for('memorize', card_type='1') }}\">memorize</a></li>\r\n                                <li><a href=\"{{ url_for('memorize_known', card_type='1') }}\">memorize known items</a></li>\r\n                                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>\r\n                                <li><a href=\"{{ url_for('logout') }}\">log out</a></li>\r\n                            {% endif %}\r\n                        </ul>\r\n                    </div>\r\n                </nav>\r\n\r\n                {% for message in get_flashed_messages() %}\r\n                    <div class=\"alert alert-success\" role=\"alert\">{{ message }}</div>\r\n                {% endfor %}\r\n                {% block body %}{% endblock %}\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <script src=\"https://code.jquery.com/jquery-2.2.4.min.js\"\r\n            integrity=\"sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=\" crossorigin=\"anonymous\"></script>\r\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js\"></script>\r\n    <script src=\"https://use.fontawesome.com/8cea844162.js\"></script>\r\n    <script src=\"{{ url_for('static', filename='fastclick.min.js') }}\"></script>\r\n    <script src=\"{{ url_for('static', filename='general.js') }}\"></script>\r\n</body>\r\n</html>\r\n"
+        }
+    ]
+}

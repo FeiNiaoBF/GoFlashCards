@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1717049968896,
@@ -28,6 +28,10 @@
                 {
                     "date": 1717050001797,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n package server\n \n import \"github.com/labstack/echo/v4\"\n \n-func (server *Server) createCards(ctx echo.Context) err {\n+func (server *Server) createCards(ctx echo.Context) erro {\n \n }\n"
+                },
+                {
+                    "date": 1717071924195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n \tctx := context.Background()\n \tid := c.Param(\"id\")\n \t// log.Println(id)\n \n-\tcard, err := server.store.GetCard(ctx, strconv.Atoi())\n+\tcard, err := server.store.GetCard(ctx, strconv.Atoi(id))\n \tif err != nil {\n \t\treturn server.errorRequest(c, err)\n \t}\n \n"
                 }
             ],
             "date": 1717049968896,

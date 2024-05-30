@@ -1,0 +1,94 @@
+{
+    "sourceFile": "cmd/server/static.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 19,
+            "patches": [
+                {
+                    "date": 1717053227245,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717053236883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,3 @@\n package server\n \n+func (server *Server) \n"
+                },
+                {
+                    "date": 1717053246090,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n package server\n \n-func (server *Server) \n+func (server *Server) game\n"
+                },
+                {
+                    "date": 1717053252449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n package server\n \n-func (server *Server) game\n+func (server *Server) game() {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1717053257728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n-func (server *Server) game() {\n-\t\n+func (server *Server) game(c echo.) {\n+\n }\n"
+                },
+                {
+                    "date": 1717053313389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n package server\n \n-func (server *Server) game(c echo.) {\n+import \"github.com/labstack/echo/v4\"\n \n+func (server *Server) game() {\n+\n }\n"
+                },
+                {
+                    "date": 1717053318908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\n+\te.Start\n }\n"
+                },
+                {
+                    "date": 1717053324889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\te.Start\n+\tserver.\n }\n"
+                },
+                {
+                    "date": 1717053330303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\tserver.\n+\tserver.router.\n }\n"
+                },
+                {
+                    "date": 1717053337273,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\tserver.router.\n+\tserver.router.Static(\"\")\n }\n"
+                },
+                {
+                    "date": 1717053343069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\tserver.router.Static(\"\")\n+\tserver.router.Static(\"../../\")\n }\n"
+                },
+                {
+                    "date": 1717053348818,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n import \"github.com/labstack/echo/v4\"\n \n func (server *Server) game() {\n-\tserver.router.Static(\"../../\")\n+\tserver.router.Static(\"../../ui/gameoflife/\")\n }\n"
+                },
+                {
+                    "date": 1717054114850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,5 @@\n package server\n \n-import \"github.com/labstack/echo/v4\"\n-\n func (server *Server) game() {\n-\tserver.router.Static(\"../../ui/gameoflife/\")\n+\tserver.router.Static(\"../../ui\", \"gameoflife\")\n }\n"
+                },
+                {
+                    "date": 1717054142874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\tserver.router.Static(\"../../ui\", \"gameoflife\")\n+\tserver.router.Static(\"\", \"gameoflife../../ui/\")\n }\n"
+                },
+                {
+                    "date": 1717054149450,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\tserver.router.Static(\"\", \"gameoflife../../ui/\")\n+\tserver.router.Static(\"\", \"../../ui/gameoflife\")\n }\n"
+                },
+                {
+                    "date": 1717054155410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\tserver.router.Static(\"\", \"../../ui/gameoflife\")\n+\tserver.router.Static(\"/game\", \"../../ui/gameoflife\")\n }\n"
+                },
+                {
+                    "date": 1717054421817,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\tserver.router.Static(\"/game\", \"../../ui/gameoflife\")\n+\tserver.router.Static(\"/game\", \"../../ui/gameoflife/game\")\n }\n"
+                },
+                {
+                    "date": 1717054427515,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\tserver.router.Static(\"/game\", \"../../ui/gameoflife/game\")\n+\t// server.router.Static(\"/game\", \"../../ui/gameoflife/game\")\n }\n"
+                },
+                {
+                    "date": 1717054575500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package server\n \n func (server *Server) game() {\n-\t// server.router.Static(\"/game\", \"../../ui/gameoflife/game\")\n+\t//\n }\n"
+                },
+                {
+                    "date": 1717072089142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,1 @@\n-package server\n-\n-func (server *Server) game() {\n-\t//\n-}\n+package serve\n"
+                }
+            ],
+            "date": 1717053227245,
+            "name": "Commit-0",
+            "content": "package server\n\n"
+        }
+    ]
+}

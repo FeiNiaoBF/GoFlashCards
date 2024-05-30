@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1716994960763,
@@ -16,6 +16,10 @@
                 {
                     "date": 1716994972858,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n <html lang=\"en\">\n <head>\n     <meta charset=\"UTF-8\">\n     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n-    <title>Foo</title>\n+    <title>Foogo Anki</title>\n </head>\n <body>\n     \n </body>\n"
+                },
+                {
+                    "date": 1717053013733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,7 +5,7 @@\n     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n     <title>Foogo Anki</title>\n </head>\n <body>\n-    \n+    <\n </body>\n </html>\n"
                 }
             ],
             "date": 1716994960762,
