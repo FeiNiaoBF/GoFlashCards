@@ -1,0 +1,70 @@
+{
+    "sourceFile": "api/card.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1717049222203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717049231692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,3 @@\n package api\n \n+func CreateCard\n"
+                },
+                {
+                    "date": 1717049295935,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,7 @@\n package api\n \n-func CreateCard\n+\n+\n+func CreateCard() {\n+\n+}\n"
+                },
+                {
+                    "date": 1717049312476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,18 @@\n package api\n \n+type CardReq struct {\n+\tFront  string `json:\"front\"`\n+\tBack   string `json:\"back\"`\n+\tTagsID int32  `json:\"tags_id\"`\n+}\n \n+type CardRes struct {\n+\tFront  string `json:\"front\"`\n+\tBack   string `json:\"back\"`\n+\tTagsID int32  `json:\"tags_id\"`\n+\tKonw   bool   `json:\"know\"`\n+}\n \n func CreateCard() {\n \n }\n"
+                },
+                {
+                    "date": 1717049329961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\"`\n-\tBack   string `json:\"back\"`\n-\tTagsID int32  `json:\"tags_id\"`\n+\tFront  string `json:\"front\" query:\"id\"`\n+\tBack   string `json:\"back\" query:\"id\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"id\"`\n }\n \n type CardRes struct {\n \tFront  string `json:\"front\"`\n@@ -13,6 +13,5 @@\n \tKonw   bool   `json:\"know\"`\n }\n \n func CreateCard() {\n-\n }\n"
+                },
+                {
+                    "date": 1717049336159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\" query:\"id\"`\n-\tBack   string `json:\"back\" query:\"id\"`\n+\tFront  string `json:\"front\" query:\"front\"`\n+\tBack   string `json:\"back\" query:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"id\"`\n }\n \n type CardRes struct {\n"
+                },
+                {
+                    "date": 1717049342133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\" query:\"front\"`\n+\tFront  string `json:\"front\" query:\"front\" `\n \tBack   string `json:\"back\" query:\"back\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"id\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\"`\n }\n \n type CardRes struct {\n \tFront  string `json:\"front\"`\n"
+                },
+                {
+                    "date": 1717049347468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\" query:\"front\" `\n-\tBack   string `json:\"back\" query:\"back\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n+\tBack   string `json:\"back\" query:\"back\" for`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\"`\n }\n \n type CardRes struct {\n"
+                },
+                {
+                    "date": 1717049354354,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package api\n \n type CardReq struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n-\tBack   string `json:\"back\" query:\"back\" for`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\"`\n }\n \n type CardRes struct {\n"
+                },
+                {
+                    "date": 1717049360138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n type CardReq struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"tags_id\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n type CardRes struct {\n \tFront  string `json:\"front\"`\n"
+                },
+                {
+                    "date": 1717049367822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n-\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n+\tFront  string `json:\"front\" \tquery:\"front\" form:\"front\"`\n+\tBack   string `json:\"back\" \t\tquery:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n type CardRes struct {\n"
+                },
+                {
+                    "date": 1717049376612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package api\n \n type CardReq struct {\n-\tFront  string `json:\"front\" \tquery:\"front\" form:\"front\"`\n-\tBack   string `json:\"back\" \t\tquery:\"back\" form:\"back\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n type CardRes struct {\n"
+                },
+                {
+                    "date": 1717049386430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,11 +6,11 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n type CardRes struct {\n-\tFront  string `json:\"front\"`\n-\tBack   string `json:\"back\"`\n-\tTagsID int32  `json:\"tags_id\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n \tKonw   bool   `json:\"know\"`\n }\n \n func CreateCard() {\n"
+                },
+                {
+                    "date": 1717049410290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n type CardRes struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKonw   bool   `json:\"know\"`\n+\tKonw   bool   `json:\"know\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n func CreateCard() {\n }\n"
+                }
+            ],
+            "date": 1717049222203,
+            "name": "Commit-0",
+            "content": "package api\n\n"
+        }
+    ]
+}

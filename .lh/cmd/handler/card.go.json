@@ -1,0 +1,26 @@
+{
+    "sourceFile": "cmd/handler/card.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1717050088305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717050093575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n-package server\n+package handler\n \n import \"github.com/labstack/echo/v4\"\n \n-func  createCards(ctx echo.Context) error {\n-\n+func createCards(ctx echo.Context) error {\n }\n"
+                },
+                {
+                    "date": 1717050098710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n-package handler\n+package server\n \n import \"github.com/labstack/echo/v4\"\n \n-func createCards(ctx echo.Context) error {\n+func (server *Server) createCards(ctx echo.Context) error {\n+\n }\n"
+                }
+            ],
+            "date": 1717050088305,
+            "name": "Commit-0",
+            "content": "package server\n\nimport \"github.com/labstack/echo/v4\"\n\nfunc  createCards(ctx echo.Context) error {\n\n}\n"
+        }
+    ]
+}

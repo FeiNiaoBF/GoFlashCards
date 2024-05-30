@@ -1,0 +1,34 @@
+{
+    "sourceFile": "util/config.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1717048254235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1717048586380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n \tDBSource      string `mapstructure:\"DB_SOURCE\"`\n \tDBDriver      string `mapstructure:\"DB_DRIVER\"`\n \tDBRoot        string `mapstructure:\"DB_ROOT\"`\n \tDBPassword    string `mapstructure:\"DB_PASSWORD\"`\n+\t\n \tServerAddress string `mapstructure:\"SERVER_ADDRESS\"`\n \tServerPort    string `mapstructure:\"SERVER_PORT\"`\n }\n \n"
+                },
+                {
+                    "date": 1717048592613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n \tDBSource      string `mapstructure:\"DB_SOURCE\"`\n \tDBDriver      string `mapstructure:\"DB_DRIVER\"`\n \tDBRoot        string `mapstructure:\"DB_ROOT\"`\n \tDBPassword    string `mapstructure:\"DB_PASSWORD\"`\n-\t\n+\tDBPo\n \tServerAddress string `mapstructure:\"SERVER_ADDRESS\"`\n \tServerPort    string `mapstructure:\"SERVER_PORT\"`\n }\n \n"
+                },
+                {
+                    "date": 1717048712144,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,10 @@\n \tDBSource      string `mapstructure:\"DB_SOURCE\"`\n \tDBDriver      string `mapstructure:\"DB_DRIVER\"`\n \tDBRoot        string `mapstructure:\"DB_ROOT\"`\n \tDBPassword    string `mapstructure:\"DB_PASSWORD\"`\n-\tDBPo\n+\tDBPort        string `mapstructure:\"DB_PORT\"`\n+\t\n \tServerAddress string `mapstructure:\"SERVER_ADDRESS\"`\n \tServerPort    string `mapstructure:\"SERVER_PORT\"`\n }\n \n"
+                },
+                {
+                    "date": 1717048717494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \tDBDriver      string `mapstructure:\"DB_DRIVER\"`\n \tDBRoot        string `mapstructure:\"DB_ROOT\"`\n \tDBPassword    string `mapstructure:\"DB_PASSWORD\"`\n \tDBPort        string `mapstructure:\"DB_PORT\"`\n-\t\n+\tDBName        string `mapstructure:\"DB_NAME\"`\n \tServerAddress string `mapstructure:\"SERVER_ADDRESS\"`\n \tServerPort    string `mapstructure:\"SERVER_PORT\"`\n }\n \n"
+                }
+            ],
+            "date": 1717048254235,
+            "name": "Commit-0",
+            "content": "package util\n\nimport \"github.com/spf13/viper\"\n\ntype Config struct {\n\tDBSource      string `mapstructure:\"DB_SOURCE\"`\n\tDBDriver      string `mapstructure:\"DB_DRIVER\"`\n\tDBRoot        string `mapstructure:\"DB_ROOT\"`\n\tDBPassword    string `mapstructure:\"DB_PASSWORD\"`\n\tServerAddress string `mapstructure:\"SERVER_ADDRESS\"`\n\tServerPort    string `mapstructure:\"SERVER_PORT\"`\n}\n\n// LoadConfig reads configuration from file or environment variables.\nfunc LoadConfig(path string) (config Config, err error) {\n\tviper.AddConfigPath(path)\n\tviper.SetConfigName(\"app\")\n\tviper.SetConfigType(\"env\")\n\n\tviper.AutomaticEnv()\n\n\terr = viper.ReadInConfig()\n\tif err != nil {\n\t\treturn\n\t}\n\n\terr = viper.Unmarshal(&config)\n\treturn\n}\n"
+        }
+    ]
+}

@@ -1,16 +1,23 @@
 package main
 
 import (
-	"github.com/FeiNiaoBF/GoFlashCards/internal/handler"
-	"github.com/FeiNiaoBF/GoFlashCards/internal/store"
-	"github.com/labstack/echo/v4"
+	"log"
+
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/server"
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/store"
+	"github.com/FeiNiaoBF/GoFlashCards/util"
 )
 
-
 func main() {
-	store.Run()
-
-	e := echo.New()
-	e.GET("/", handler.IndexHandler)
-	e.Logger.Fatal(e.Start(":1323"))
+	// config
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config: ", err)
+	}
+	// RUN SQL
+	store.InitDB(config)
+	defer store.CloseDB()
+	// RUN echo
+	server := server.NewServer(config, store.GetDB())
+	server.Run()
 }
