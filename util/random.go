@@ -24,3 +24,7 @@ func RandText(num int) string {
 	}
 	return sb.String()
 }
+
+func RandCardID() int {
+	return randomNum.Intn(100)
+}

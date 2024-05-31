@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1717049222203,
@@ -60,6 +60,50 @@
                 {
                     "date": 1717049410290,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n type CardRes struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKonw   bool   `json:\"know\"`\n+\tKonw   bool   `json:\"know\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n func CreateCard() {\n }\n"
+                },
+                {
+                    "date": 1717075307962,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n type CardRes struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKonw   bool   `json:\"know\" query:\"tags_id\" form:\"tags_id\"`\n+\tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n \n func CreateCard() {\n+\t\n }\n"
+                },
+                {
+                    "date": 1717075319420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,8 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n \n+// 前端和后端的api\n func CreateCard() {\n-\t\n+\n }\n"
+                },
+                {
+                    "date": 1717075328592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,12 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n \n-// 前端和后端的api\n+// 前端和后端的api接口\n func CreateCard() {\n-\n+\t// 1. 前端发送请求\n+\t// 2. 后端接收请求\n+\t// 3. 后端处理请求\n+\t// 4. 后端返回响应\n+\t\n }\n"
+                },
+                {
+                    "date": 1717075335764,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,6 +18,6 @@\n \t// 1. 前端发送请求\n \t// 2. 后端接收请求\n \t// 3. 后端处理请求\n \t// 4. 后端返回响应\n-\t\n+\n }\n"
+                },
+                {
+                    "date": 1717075401493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,11 +13,10 @@\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n \n // 前端和后端的api接口\n-func CreateCard() {\n+func CreateCard(res *) {\n \t// 1. 前端发送请求\n \t// 2. 后端接收请求\n \t// 3. 后端处理请求\n \t// 4. 后端返回响应\n-\n }\n"
+                },
+                {
+                    "date": 1717075406584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n \n // 前端和后端的api接口\n-func CreateCard(res *) {\n+func CreateCard(res *CardReq) *CardRes {\n \t// 1. 前端发送请求\n \t// 2. 后端接收请求\n \t// 3. 后端处理请求\n \t// 4. 后端返回响应\n"
+                },
+                {
+                    "date": 1717075411873,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,6 @@\n }\n \n // 前端和后端的api接口\n func CreateCard(res *CardReq) *CardRes {\n-\t// 1. 前端发送请求\n-\t// 2. 后端接收请求\n-\t// 3. 后端处理请求\n-\t// 4. 后端返回响应\n+\treturn &CardRes{}\n }\n"
+                },
+                {
+                    "date": 1717075424963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,6 +14,8 @@\n }\n \n // 前端和后端的api接口\n func CreateCard(res *CardReq) *CardRes {\n-\treturn &CardRes{}\n+\treturn &CardRes{\n+\t\t\n+\t}\n }\n"
+                },
+                {
+                    "date": 1717075435190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,6 @@\n }\n \n // 前端和后端的api接口\n func CreateCard(res *CardReq) *CardRes {\n-\treturn &CardRes{\n-\t\t\n-\t}\n+\t\n }\n"
+                },
+                {
+                    "date": 1717075441006,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,6 +14,6 @@\n }\n \n // 前端和后端的api接口\n func CreateCard(res *CardReq) *CardRes {\n-\t\n+\tcard := server\n }\n"
+                },
+                {
+                    "date": 1717075451469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,4 @@\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n-\n-// 前端和后端的api接口\n-func CreateCard(res *CardReq) *CardRes {\n-\tcard := server\n-}\n"
                 }
             ],
             "date": 1717049222203,

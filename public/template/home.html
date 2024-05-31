@@ -1,0 +1,17 @@
+{{ define "content" }}
+<div class="card">
+  <div class="card-front">
+    <!-- 前端显示的内容 -->
+    <p>{{ .card.Front }}</p>
+  </div>
+  <div class="card-back">
+    <!-- 后端传来的数据 -->
+    <p>{{ .card.Back }}</p>
+  </div>
+</div>
+<div class="card-controls">
+  <button class="flip-card">Flip</button>
+  <button class="know-card">Know</button>
+  <button class="next-card">Next</button>
+</div>
+{{ end }}

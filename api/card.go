@@ -12,6 +12,3 @@ type CardRes struct {
 	TagsID int32  `json:"tags_id" query:"tags_id" form:"tags_id"`
 	Konw   bool   `json:"know" query:"know" form:"know"`
 }
-
-func CreateCard() {
-}

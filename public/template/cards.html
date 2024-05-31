@@ -1,0 +1,37 @@
+{{ define "content" }}
+<div class="well editPanel">
+  <h2>Add a Card</h2>
+  <form action="/" method="post" class="cardForm">
+    <div class="form-group">
+      {{ range .tags }}
+      <label for="{{ .tagName }}" class="toggleButton btn btn-default btn-lg"
+        >{{ .tagName }} &nbsp;
+        <input type="radio" name="type" value="{{ .id }}" id="{{ .tagName }}" />
+      </label>
+      {{ end }}
+    </div>
+    <div class="form-group fieldFront">
+      <label for="front">Front of Card</label>
+      <input type="text" name="front" id="front" class="form-control" />
+    </div>
+    <div class="form-group fieldBack">
+      <label for="back">Back of Card</label>
+      <textarea
+        name="back"
+        class="form-control"
+        id="back"
+        placeholder="back of card"
+        rows="12"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="saveButton btn btn-lg btn-primary">
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="page-header">
+  <h2>{{ len .cards }} Card{{ if ne (len .cards) 1 }}s{{ end }}</h2>
+</div>
+{{ end }}

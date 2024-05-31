@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"net/http"
 	"strconv"
 
@@ -12,7 +11,7 @@ import (
 
 func (server *Server) createCards(c echo.Context) error {
 	var card model.CardInput
-	ctx := context.Background()
+	ctx := c.Request().Context()
 	if err := c.Bind(&card); err != nil {
 		return server.errorRequest(c, err)
 	}
@@ -25,28 +24,25 @@ func (server *Server) createCards(c echo.Context) error {
 	}
 	// log.Println(arg)
 
-	newCard, err := server.store.CreateCards(ctx, arg) // Assign the result to a new variable
+	_, err := server.store.CreateCards(ctx, arg) // Assign the result to a new variable
 	// log.Println(newCard)
 	if err != nil {
 		// Handle the error
 		return server.errorRequest(c, err)
 	}
 
-	outCard := model.CardOutput{
-		Front:  newCard.Front,
-		Back:   newCard.Back,
-		TagsID: newCard.TagsID,
-		Konw:   newCard.Know,
-	}
+	// 显示成功消息
+	flashMessage := "New card was successfully added."
+	c.Set("flash", flashMessage)
 
 	// Use the newCard variable as needed
 
-	return c.JSON(http.StatusOK, outCard)
+	return c.Redirect(http.StatusSeeOther, "/cards")
 }
 
 // /card:id method: GET
 func (server *Server) getCards(c echo.Context) error {
-	ctx := context.Background()
+	ctx := c.Request().Context()
 	id := c.Param("id")
 
 	cardID, err := strconv.ParseInt(id, 10, 64)
@@ -70,7 +66,7 @@ func (server *Server) getCards(c echo.Context) error {
 
 func (server *Server) updateCard(c echo.Context) error {
 	var card model.CardInput
-	ctx := context.Background()
+	ctx := c.Request().Context()
 	if err := c.Bind(&card); err != nil {
 		return server.errorRequest(c, err)
 	}
@@ -102,7 +98,7 @@ func (server *Server) updateCard(c echo.Context) error {
 }
 
 func (server *Server) deleteCard(c echo.Context) error {
-	ctx := context.Background()
+	ctx := c.Request().Context()
 	id := c.Param("id")
 
 	cardID, err := strconv.ParseInt(id, 10, 64)
@@ -117,3 +113,25 @@ func (server *Server) deleteCard(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "Deleted successfully")
 }
+
+// func (server *Server) getAllCards(c echo.Context) error {
+// 	ctx := context.Background()
+// 	cards, err := server.store.ListCards(ctx)
+// 	if err != nil {
+// 		return server.errorRequest(c, err)
+// 	}
+
+// 	outCards := make([]model.CardOutput, len(cards))
+// 	for i, card := range cards {
+// 		outCards[i] = model.CardOutput{
+// 			Front:  card.Front,
+// 			Back:   card.Back,
+// 			TagsID: card.TagsID,
+// 			Konw:   card.Know,
+// 		}
+// 	}
+
+// 	return c.Render(http.StatusOK, "add_card.html", map[string]interface{}{
+// 		"cards": cards,
+// 	})
+// }
