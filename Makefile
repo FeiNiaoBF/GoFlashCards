@@ -37,7 +37,10 @@ test:
 server:
 	go run main.go
 
+templ:
+	templ generate
+
 
 .PHONY: createdb dropdb postgres migratedown \
 		migrateup sqlc stop start test server mock \
-		psql
+		psql templ

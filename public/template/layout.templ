@@ -1,0 +1,48 @@
+package view
+
+templ Base() {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Go Foogo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<link
+				rel="stylesheet"
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+				integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+				crossorigin="anonymous"
+			/>
+			<link rel="stylesheet" type="text/css" href="/public/static/style.css"/>
+			<link rel="stylesheet" type="text/css" href="/public/static/highlight-theme-github.css"/>
+			<script src="/public/static/highlight.pack.js"></script>
+		</head>
+		<body>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<br/>
+						<nav class="navbar navbar-default">
+							<div class="navbar-header">
+								<a class="navbar-brand" href="/">Go Foogo</a>
+								<ul class="nav navbar-nav navbar-right">
+									// TODO: Add active class
+									<li><a href="/">Home</a></li>
+									<li><a href="/card">Cards</a></li>
+									<li><a href="/tag">Tags</a></li>
+									<li><a href="/show">Show</a></li>
+								</ul>
+							</div>
+						</nav>
+						// TODO: Add content
+						{ children... }
+					</div>
+				</div>
+			</div>
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script src="https://use.fontawesome.com/8cea844162.js"></script>
+			<script src="/public/static/fastclick.min.js"></script>
+			<script src="/public/static/general.js"></script>
+		</body>
+	</html>
+}

@@ -8,6 +8,7 @@ import (
 	"github.com/FeiNiaoBF/GoFlashCards/util"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"go.uber.org/zap"
 )
 
 type Server struct {
@@ -22,6 +23,9 @@ func NewServer(config util.Config, store *sqlc.Queries) *Server {
 		store:  store,
 	}
 	server.setRouter()
+	server.setMiddle()
+	// server.setTemplate()
+	server.setStaticFile()
 
 	return server
 }
@@ -42,31 +46,47 @@ func (server *Server) errorRequest(c echo.Context, err error) error {
 // setRouter
 func (server *Server) setRouter() {
 	router := echo.New()
-	// middleware
-	router.Use(middleware.Logger())
+
+	router.Use(middleware.Recover())
 
 	router.GET("/", server.home)
 	// card group
 	router.Group("/card")
-	router.GET("/card/:id", server.getCards)
+	router.GET("/card", server.getAllCards)
 	router.POST("/card/add", server.createCards)
 	router.PUT("/card/update/:id", server.updateCard)
 	router.DELETE("/card/delete/:id", server.deleteCard)
 	// tag group
-	router.Group("/tag")
-	router.GET("/tag/:id", server.getTags)
-	router.POST("/tag/add", server.createTags)
-	router.PUT("/tag/update/:id", server.updateTag)
-	router.DELETE("/tag/delete/:id", server.deleteTag)
+	// router.Group("/tag")
+	// router.GET("/tag/:id", server.getAllTags)
+	// router.POST("/tag/add", server.createTags)
+	// router.PUT("/tag/update/:id", server.updateTag)
+	// router.DELETE("/tag/delete/:id", server.deleteTag)
 
 	server.router = router
-	server.setTemplate()
-	server.setStaticFile()
 }
 
-func (server *Server) setTemplate() {
-	server.router.Renderer = newTemplate()
-}
+// func (server *Server) setTemplate() {
+// 	// server.router.Renderer = newTemplate()
+// }
 
 func (server *Server) setStaticFile() {
+	server.router.Static("/public", "public")
+}
+
+func (server *Server) setMiddle() {
+	// middleware
+	logger, _ := zap.NewProduction()
+	server.router.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogURI:    true,
+		LogStatus: true,
+		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+			logger.Info("request",
+				zap.String("URI", v.URI),
+				zap.Int("status", v.Status),
+			)
+
+			return nil
+		},
+	}))
 }

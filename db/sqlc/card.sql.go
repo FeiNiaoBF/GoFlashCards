@@ -10,11 +10,8 @@ import (
 )
 
 const createCards = `-- name: CreateCards :one
-INSERT INTO cards (
-    front, back, tags_id
-)VALUES (
-             $1, $2, $3
-         )
+INSERT INTO cards (front, back, tags_id)
+VALUES ($1, $2, $3)
 RETURNING id, front, back, know, tags_id, "add_Time"
 `
 
@@ -49,7 +46,8 @@ func (q *Queries) DeleteCards(ctx context.Context, id int64) error {
 }
 
 const getAllCard = `-- name: GetAllCard :many
-SELECT id, front, back, know, tags_id, "add_Time" FROM cards
+SELECT id, front, back, know, tags_id, "add_Time"
+FROM cards
 ORDER BY id
 `
 
@@ -81,8 +79,10 @@ func (q *Queries) GetAllCard(ctx context.Context) ([]Card, error) {
 }
 
 const getCard = `-- name: GetCard :one
-SELECT id, front, back, know, tags_id, "add_Time" FROM cards
-WHERE id = $1 LIMIT 1
+SELECT id, front, back, know, tags_id, "add_Time"
+FROM cards
+WHERE id = $1
+LIMIT 1
 `
 
 func (q *Queries) GetCard(ctx context.Context, id int64) (Card, error) {
@@ -133,10 +133,10 @@ func (q *Queries) GetCardByTag(ctx context.Context, tagsID int32) ([]Card, error
 }
 
 const listCards = `-- name: ListCards :many
-SELECT id, front, back, know, tags_id, "add_Time" FROM cards
+SELECT id, front, back, know, tags_id, "add_Time"
+FROM cards
 ORDER BY id
-LIMIT $1
-OFFSET $2
+LIMIT $1 OFFSET $2
 `
 
 type ListCardsParams struct {

@@ -1,20 +1,10 @@
 -- name: GetCard :one
-SELECT id,
-    front,
-    back,
-    tags_id,
-    know,
-    add_Time
+SELECT *
 FROM cards
 WHERE id = $1
 LIMIT 1;
 -- name: GetAllCard :many
-SELECT id,
-    front,
-    back,
-    tags_id,
-    know,
-    add_Time
+SELECT *
 FROM cards
 ORDER BY id;
 -- name: ListCards :many

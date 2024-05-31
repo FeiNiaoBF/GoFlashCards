@@ -1,0 +1,69 @@
+package view
+
+import (
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+)
+
+templ CardHandler(cards []model.CardOutput, tags []model.TagOutput) {
+	@Base() {
+		<div class="well editPanel">
+			<h2>Add a Card</h2>
+			<form action="/card/add" method="post" class="cardForm">
+				<div class="form-group">
+					@tagList(tags)
+				</div>
+				<div class="form-group fieldFront">
+					<label for="front">Front of Card</label>
+					<input type="text" name="front" id="front" class="form-control"/>
+				</div>
+				<div class="form-group fieldBack">
+					<label for="back">Back of Card</label>
+					<textarea
+						name="back"
+						class="form-control"
+						id="back"
+						placeholder="back of card"
+						rows="12"
+					></textarea>
+				</div>
+				// TODO: Add content
+				{ children... }
+				<div class="form-group">
+					<button type="submit" class="saveButton btn btn-lg btn-primary">Save</button>
+				</div>
+			</form>
+		</div>
+		@cardPage(cards)
+	}
+}
+
+templ AddCardHandler(cards []model.CardOutput, tags []model.TagOutput) {
+	@CardHandler(cards, tags) {
+		<div>
+			<p class="text-center text-success">New card was successfully added.</p>
+		</div>
+	}
+}
+
+templ tagList(tags []model.TagOutput) {
+	<div class="cardList">
+		for _, tag := range tags {
+			<label for={ tag.Name } class="toggleButton btn btn-default btn-lg">
+				{ tag.Name } &nbsp;
+				<input type="radio" name="type" value={ tag.ID } id={ tag.Name }/>
+			</label>
+		}
+	</div>
+}
+
+templ cardPage(cards []model.CardOutput) {
+	<div>
+		<h2>
+			if len(cards) == 1 {
+				Card
+			} else {
+				Cards
+			}
+		</h2>
+	</div>
+}

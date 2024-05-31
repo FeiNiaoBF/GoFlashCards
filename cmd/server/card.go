@@ -6,6 +6,7 @@ import (
 
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
 	"github.com/FeiNiaoBF/GoFlashCards/db/sqlc"
+	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
 	"github.com/labstack/echo/v4"
 )
 
@@ -31,37 +32,74 @@ func (server *Server) createCards(c echo.Context) error {
 		return server.errorRequest(c, err)
 	}
 
-	// 显示成功消息
-	flashMessage := "New card was successfully added."
-	c.Set("flash", flashMessage)
-
-	// Use the newCard variable as needed
-
-	return c.Redirect(http.StatusSeeOther, "/cards")
+	c.Logger()
+	outCard, err := server.getAllCardsHelper(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+	outTags, err := server.getAllTags(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+	return view.RenderHelper(c, view.AddCardHandler(outCard, outTags))
 }
 
 // /card:id method: GET
-func (server *Server) getCards(c echo.Context) error {
+func (server *Server) getAllCards(c echo.Context) error {
+	outCard, err := server.getAllCardsHelper(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+	outTags, err := server.getAllTags(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+
+	return view.RenderHelper(c, view.CardHandler(outCard, outTags))
+}
+
+// getAllCardsHelper is a helper function
+func (server *Server) getAllCardsHelper(c echo.Context) ([]model.CardOutput, error) {
 	ctx := c.Request().Context()
-	id := c.Param("id")
 
-	cardID, err := strconv.ParseInt(id, 10, 64)
+	cards, err := server.store.GetAllCard(ctx)
 	if err != nil {
-		return server.errorRequest(c, err)
+		return nil, err
 	}
-	card, err := server.store.GetCard(ctx, cardID)
+
+	outCard := make([]model.CardOutput, len(cards))
+	for i, card := range cards {
+		outCard[i] = model.CardOutput{
+			Front:  card.Front,
+			Back:   card.Back,
+			TagsID: card.TagsID,
+			Know:   card.Know,
+		}
+	}
+
+	return outCard, nil
+}
+
+// getListCard is helper function
+func (server *Server) getListCardHelper(c echo.Context, page sqlc.ListCardsParams) ([]model.CardOutput, error) {
+	ctx := c.Request().Context()
+
+	cards, err := server.store.ListCards(ctx, page)
 	if err != nil {
-		return server.errorRequest(c, err)
+		return nil, err
 	}
 
-	outCard := model.CardOutput{
-		Front:  card.Front,
-		Back:   card.Back,
-		TagsID: card.TagsID,
-		Konw:   card.Know,
+	outCard := make([]model.CardOutput, len(cards))
+	for i, card := range cards {
+		outCard[i] = model.CardOutput{
+			Front:  card.Front,
+			Back:   card.Back,
+			TagsID: card.TagsID,
+			Know:   card.Know,
+		}
 	}
 
-	return c.JSON(http.StatusOK, outCard)
+	return outCard, nil
 }
 
 func (server *Server) updateCard(c echo.Context) error {
@@ -89,7 +127,7 @@ func (server *Server) updateCard(c echo.Context) error {
 		Front:  newCard.Front,
 		Back:   newCard.Back,
 		TagsID: newCard.TagsID,
-		Konw:   newCard.Know,
+		Know:   newCard.Know,
 	}
 
 	// Use the newCard variable as needed
@@ -127,7 +165,7 @@ func (server *Server) deleteCard(c echo.Context) error {
 // 			Front:  card.Front,
 // 			Back:   card.Back,
 // 			TagsID: card.TagsID,
-// 			Konw:   card.Know,
+// 			Know:   card.Know,
 // 		}
 // 	}
 

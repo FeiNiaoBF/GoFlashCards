@@ -1,0 +1,48 @@
+package view
+
+import (
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	"strconv"
+)
+
+templ Hello(cards []model.CardOutput) {
+	@Base() {
+		<h1>Welcome to Go Foogo Cards<small>alphaV0.1.2</small></h1>
+		<p class="lead">我的类Anki App</p>
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Front</th>
+						<th scope="col">Back</th>
+						<th scope="col">Know</th>
+					</tr>
+				</thead>
+				<tbody>
+					@cardList(cards)
+				</tbody>
+			</table>
+		</div>
+		<a href="/card" class="btn btn-primary btn-lg">View Cards</a>
+	}
+}
+
+templ cardList(cards []model.CardOutput) {
+	// 假设你有100张卡片，这里只显示前10张
+	for ind, card := range cards {
+		<tr>
+			<th scope="row">{ strconv.Itoa(ind) }</th>
+			<td>{ card.Front }</td>
+			<td>{ card.Back }</td>
+			<td>{ isKnow(card.Know) }</td>
+		</tr>
+	}
+}
+
+func isKnow(know bool) string {
+	if know {
+		return "了解"
+	}
+	return "不识"
+}

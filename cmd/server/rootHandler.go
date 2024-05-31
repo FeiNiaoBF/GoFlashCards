@@ -1,20 +1,21 @@
 package server
 
 import (
-	"net/http"
-
+	"github.com/FeiNiaoBF/GoFlashCards/db/sqlc"
+	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
 	"github.com/labstack/echo/v4"
 )
 
 func (server *Server) home(c echo.Context) error {
-	ctx := c.Request().Context()
+	args := sqlc.ListCardsParams{
+		Limit:  10,
+		Offset: 10,
+	}
 
-	card, err := server.store.GetCard(ctx, int64(1))
+	cards, err := server.getListCardHelper(c, args)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
 
-	return c.Render(http.StatusOK, "home.html", map[string]interface{}{
-		"card": card,
-	})
+	return view.RenderHelper(c, view.Hello(cards))
 }

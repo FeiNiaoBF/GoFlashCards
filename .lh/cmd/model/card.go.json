@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1717048159374,
@@ -44,6 +44,10 @@
                 {
                     "date": 1717051508476,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,13 @@\n package model\n \n-type CardInout struct {\n+type CardInput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n-type CardRes struct {\n+type CardOutput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n \tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n"
+                },
+                {
+                    "date": 1717132270650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,6 +9,6 @@\n type CardOutput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n"
                 }
             ],
             "date": 1717048159374,
