@@ -34,7 +34,9 @@ templ cardList(cards []model.CardOutput) {
 		<tr>
 			<th scope="row">{ strconv.Itoa(ind) }</th>
 			<td>{ card.Front }</td>
-			<td>{ card.Back }</td>
+			<td>
+				<div class="hidden">{ card.Back }</div>
+			</td>
 			<td>{ isKnow(card.Know) }</td>
 		</tr>
 	}

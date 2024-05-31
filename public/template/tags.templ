@@ -1,0 +1,32 @@
+package view
+
+import (
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+)
+
+// URL: /tag method: GET
+templ TagsHandler(tags []model.TagOutput) {
+	@Base() {
+		<div class="well editPanelTag">
+			<h2>Add a Tag</h2>
+			<form action="tag/add" method="post" class="tagForm">
+				<div class="form-group fieldTagName">
+					<label for="tagName">Tag name</label>
+					<input type="text" name="tagName" id="tagName" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="saveButton btn btn-lg btn-primary">Save</button>
+				</div>
+			</form>
+		</div>
+	}
+}
+
+// URL: /tag/add method: POST
+templ AddTagsHandler(tags []model.TagOutput) {
+	@TagsHandler(tags) {
+		<div>
+			<p class="text-center text-success">New card was successfully added.</p>
+		</div>
+	}
+}

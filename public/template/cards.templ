@@ -4,6 +4,7 @@ import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
 )
 
+// URL: /card method: GET
 templ CardHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	@Base() {
 		<div class="well editPanel">
@@ -37,6 +38,7 @@ templ CardHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	}
 }
 
+// URL: /card/add method: POST
 templ AddCardHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	@CardHandler(cards, tags) {
 		<div>

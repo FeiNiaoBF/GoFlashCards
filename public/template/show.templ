@@ -1,0 +1,45 @@
+package view
+
+templ ShowHandler() {
+	@Base() {
+		// <div class="page-header">
+		//     <h2>{{ len .Cards }} Card{{ if ne (len .Cards) 1 }}s{{ end }}</h2>
+		// </div>
+		// <div class="btn-group btn-group-md" role="group" aria-label="filters">
+		//     <a href="/filter_cards?filter_name=all" class="btn btn-{{ if eq .FilterName "all" }}primary{{ else }}default{{ end }}">all</a>
+		//     {{ range .Tags }}
+		//         <a href="/filter_cards?filter_name={{.ID}}" class="btn btn-{{ if eq .FilterName .ID }}primary{{ else }}default{{ end }}">{{.TagName}}</a>
+		//     {{ end }}
+		//     <a href="/filter_cards?filter_name=known" class="btn btn-{{ if eq .FilterName "known" }}primary{{ else }}default{{ end }}">known</a>
+		//     <a href="/filter_cards?filter_name=unknown" class="btn btn-{{ if eq .FilterName "unknown" }}primary{{ else }}default{{ end }}">unknown</a>
+		// </div>
+		// <br />
+		// <br />
+		// <table class="table table-bordered">
+		// </table>
+	}
+}
+
+// {{ range .Cards }}
+//     <tr>
+//         <td>
+//             <a href="/edit?card_id={{.ID}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+//         </td>
+//         <td class="cardContent">
+//             <h4>
+//                 {{ .Front }}
+//             </h4>
+//             {{ if eq .Type 1 }}
+//                 {{ .Back | replace "\n" "<br />" | safe }}
+//             {{ else }}
+//                 <pre><code>{{ .Back | html | safe }}</code></pre>
+//             {{ end }}
+//         </td>
+//     </tr>
+// {{ else }}
+//     <tr>
+//         <td>
+//             <em>No cards to show.</em>
+//         </td>
+//     </tr>
+// {{ end }}

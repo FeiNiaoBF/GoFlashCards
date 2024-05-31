@@ -31,13 +31,13 @@ func (server *Server) createCards(c echo.Context) error {
 		// Handle the error
 		return server.errorRequest(c, err)
 	}
-
+	// TODO: Use log
 	c.Logger()
 	outCard, err := server.getAllCardsHelper(c)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
-	outTags, err := server.getAllTags(c)
+	outTags, err := server.getAllTagsHelper(c)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
@@ -50,7 +50,7 @@ func (server *Server) getAllCards(c echo.Context) error {
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
-	outTags, err := server.getAllTags(c)
+	outTags, err := server.getAllTagsHelper(c)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}

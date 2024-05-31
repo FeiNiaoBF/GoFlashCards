@@ -1,40 +1,51 @@
 package server
 
 import (
-	"net/http"
 	"strconv"
 
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
+	"github.com/FeiNiaoBF/GoFlashCards/util"
 	"github.com/labstack/echo/v4"
 )
 
-// func (server *Server) createTags(c echo.Context) error {
-// 	var Tag model.TagInput
-// 	ctx := c.Request().Context()
-// 	if err := c.Bind(&Tag); err != nil {
-// 		return server.errorRequest(c, err)
-// 	}
+func (server *Server) createTags(c echo.Context) error {
+	var Tag model.TagInput
+	ctx := c.Request().Context()
+	if err := c.Bind(&Tag); err != nil {
+		return server.errorRequest(c, err)
+	}
 
-// 	// log.Println(Tag)
-// 	name := util.RandText(5)
-// 	// log.Println(arg)
+	// log.Println(Tag)
+	name := util.RandText(5)
+	// log.Println(arg)
 
-// 	newTag, err := server.store.CreateTags(ctx, name) // Assign the result to a new variable
-// 	// log.Println(newTag)
-// 	if err != nil {
-// 		// Handle the error
-// 		return server.errorRequest(c, err)
-// 	}
+	_, err := server.store.CreateTags(ctx, name) // Assign the result to a new variable
+	// log.Println(newTag)
+	if err != nil {
+		// Handle the error
+		return server.errorRequest(c, err)
+	}
+	// TODO: Use log
+	c.Logger()
+	outTags, err := server.getAllTagsHelper(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+	// Use the newTag variable as needed
 
-// 	outTag := model.TagOutput{
-// 		ID:   int(newTag.ID),
-// 		Name: newTag.Name,
-// 	}
+	return view.RenderHelper(c, view.AddTagsHandler(outTags))
+}
 
-// 	// Use the newTag variable as needed
+func (server *Server) getAllTags(c echo.Context) error {
+	tags, err := server.getAllTagsHelper(c)
+	if err != nil {
+		return err
+	}
 
-// 	return c.JSON(http.StatusOK, outTag)
-// }
+	// TODO: handler
+	return view.RenderHelper(c, view.TagsHandler(tags))
+}
 
 // func (server *Server) updateTag(c echo.Context) error {
 // 	var Tag model.TagInput
@@ -66,25 +77,25 @@ import (
 // 	return c.JSON(http.StatusOK, outTag)
 // }
 
-func (server *Server) deleteTag(c echo.Context) error {
-	ctx := c.Request().Context()
-	id := c.Param("id")
+// func (server *Server) deleteTag(c echo.Context) error {
+// 	ctx := c.Request().Context()
+// 	id := c.Param("id")
 
-	TagID, err := strconv.ParseInt(id, 10, 64)
-	if err != nil {
-		return server.errorRequest(c, err)
-	}
+// 	TagID, err := strconv.ParseInt(id, 10, 64)
+// 	if err != nil {
+// 		return server.errorRequest(c, err)
+// 	}
 
-	err = server.store.DeleteTags(ctx, TagID)
-	if err != nil {
-		return server.errorRequest(c, err)
-	}
+// 	err = server.store.DeleteTags(ctx, TagID)
+// 	if err != nil {
+// 		return server.errorRequest(c, err)
+// 	}
 
-	return c.JSON(http.StatusOK, "Deleted successfully")
-}
+// 	return c.JSON(http.StatusOK, "Deleted successfully")
+// }
 
 // helper function to get all tags
-func (server *Server) getAllTags(c echo.Context) ([]model.TagOutput, error) {
+func (server *Server) getAllTagsHelper(c echo.Context) ([]model.TagOutput, error) {
 	ctx := c.Request().Context()
 
 	tags, err := server.store.GetAllTags(ctx)
