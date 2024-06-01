@@ -35,7 +35,7 @@ func TagsHandler(tags []model.TagOutput) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"well editPanelTag\"><h2>Add a Tag</h2><form action=\"tag/add\" method=\"post\" class=\"tagForm\"><div class=\"form-group fieldTagName\"><label for=\"tagName\">Tag name</label> <input type=\"text\" name=\"tagName\" id=\"tagName\" class=\"form-control\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"well editPanelTag\"><h2>Add a Tag</h2><form action=\"/tag/add\" method=\"post\" class=\"tagForm\"><div class=\"form-group fieldTagName\"><label for=\"name\">Tag name</label> <input type=\"text\" name=\"name\" id=\"name\" class=\"form-control\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -146,7 +146,7 @@ func tagsPage(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(lenTags(len(tags)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 51, Col: 23}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 52, Col: 23}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -224,9 +224,9 @@ func taglist(tags []model.TagOutput) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
-				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(ind))
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(ind + 1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 80, Col: 40}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 81, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -239,7 +239,7 @@ func taglist(tags []model.TagOutput) templ.Component {
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 84, Col: 16}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/tags.templ`, Line: 85, Col: 16}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {

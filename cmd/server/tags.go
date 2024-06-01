@@ -1,11 +1,11 @@
 package server
 
 import (
+	"log"
 	"strconv"
 
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
 	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
-	"github.com/FeiNiaoBF/GoFlashCards/util"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,13 +15,8 @@ func (server *Server) createTags(c echo.Context) error {
 	if err := c.Bind(&Tag); err != nil {
 		return server.errorRequest(c, err)
 	}
-
-	// log.Println(Tag)
-	name := util.RandText(5)
-	// log.Println(arg)
-
-	_, err := server.store.CreateTags(ctx, name) // Assign the result to a new variable
-	// log.Println(newTag)
+	log.Println(Tag.Name)
+	_, err := server.store.CreateTags(ctx, Tag.Name) // Assign the result to a new variable
 	if err != nil {
 		// Handle the error
 		return server.errorRequest(c, err)

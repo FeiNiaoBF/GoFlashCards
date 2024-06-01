@@ -1,0 +1,90 @@
+package view
+
+import (
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	_ "strconv"
+)
+
+templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
+	@Base() {
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<div class="btn-group btn-group-lg" role="group" aria-label="card type">
+					// TODO: add a button for all cards
+				</div>
+			</div>
+		</div>
+		<hr/>
+		<div class="row memorizePanel">
+			<div class="col-xs-2">
+				<div class="alignContainer">
+					<div class="alignMiddle text-right">
+						<br/>
+						<br/>
+						// TODO: add a button for previous card
+                        <a href="wewetw"><i class="fa fa-chevron-left fa-5x"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="panel panel-default cardFront">
+					<div class="panel-body">
+						<div class="alignContainer">
+							<div class="alignMiddle frontText">
+								<h3 class="text-center">Test</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary cardBack">
+					<div class="panel-body">
+						<div class="alignContainer">
+							<div class="alignMiddle frontText">
+								// TODO:
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<a href="javascript:" class="btn btn-primary btn-lg flipCard">
+					<i class="fa fa-exchange"></i>
+					Flip Card
+				</a>
+				&nbsp;
+				&nbsp;
+				<a href="" class="btn btn-success btn-lg">
+					<i class="fa fa-check"></i>
+					I Know It
+				</a>
+				&nbsp;
+				&nbsp;
+				<a href="" class="btn btn-primary btn-lg">
+					Next Card
+					<i class="fa fa-arrow-right"></i>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<br/>
+				<br/>
+				<br/>
+				<a href="" class="btn btn-default btn-sm">
+					<i class="fa fa-bookmark"></i>
+					bookmark this card (Test)
+				</a>
+			</div>
+		</div>
+	}
+}
+
+// {% for tag in tags %}
+//
+// {% endfor %}
+
+// templ forTag(tags []model.TagOutput){
+// <a href="{{ url_for('memorize', card_type=tag.id) }}" class="btn btn-{{ "primary" if card_type == tag.id else "default" }}">{{tag.tagName}}</a>
+// }

@@ -32,7 +32,7 @@ templ cardList(cards []model.CardOutput) {
 	// 假设你有100张卡片，这里只显示前10张
 	for ind, card := range cards {
 		<tr>
-			<th scope="row">{ strconv.Itoa(ind) }</th>
+			<th scope="row">{ strconv.Itoa(ind+1) }</th>
 			<td>{ card.Front }</td>
 			<td>
 				<div class="hidden">{ card.Back }</div>

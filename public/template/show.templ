@@ -40,7 +40,7 @@ templ tableCrads(cards []model.CardOutput) {
 		for ind, card := range cards {
 			<tr>
 				<tb>
-					<th scope="row">{ strconv.Itoa(ind) }</th>
+					<th scope="row">{ strconv.Itoa(ind+1) }</th>
 				</tb>
 				<td calss="cardContent">
 					<h4>
@@ -62,7 +62,7 @@ templ tableCrads(cards []model.CardOutput) {
 	} else {
 		<tr>
 			<td>
-				<em>No cards to show.</em>
+				<p class="text-danger"><em>No cards to show.</em></p>
 			</td>
 		</tr>
 	}

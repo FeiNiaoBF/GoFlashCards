@@ -10,13 +10,14 @@ templ TagsHandler(tags []model.TagOutput) {
 	@Base() {
 		<div class="well editPanelTag">
 			<h2>Add a Tag</h2>
-			<form action="tag/add" method="post" class="tagForm">
+			<form action="/tag/add" method="post" class="tagForm">
 				<div class="form-group fieldTagName">
-					<label for="tagName">Tag name</label>
-					<input type="text" name="tagName" id="tagName" class="form-control"/>
+					<label for="name">Tag name</label>
+					<input type="text" name="name" id="name" class="form-control"/>
 				</div>
-				// TODO: Add content
+
 				{ children... }
+
 				<div class="form-group">
 					<button type="submit" class="saveButton btn btn-lg btn-primary">Save</button>
 				</div>
@@ -77,7 +78,7 @@ templ taglist(tags []model.TagOutput) {
 		for ind, tag := range tags {
 			<tr>
 				<tb>
-					<th scope="row">{ strconv.Itoa(ind) }</th>
+					<th scope="row">{ strconv.Itoa(ind+1) }</th>
 				</tb>
 				<td calss="tagContent">
 					<h4>

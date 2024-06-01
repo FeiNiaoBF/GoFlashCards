@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 12,
             "patches": [
                 {
                     "date": 1717048159374,
@@ -48,6 +48,14 @@
                 {
                     "date": 1717132270650,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,6 +9,6 @@\n type CardOutput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKonw   bool   `json:\"know\" query:\"know\" form:\"know\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\"`\n }\n"
+                },
+                {
+                    "date": 1717237897188,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package model\n \n type CardInput struct {\n-\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n }\n \n"
+                },
+                {
+                    "date": 1717237907096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n package model\n \n type CardInput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n-\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n }\n \n type CardOutput struct {\n-\tFront  string `json:\"front\" query:\"front\" form:\"front\"`\n-\tBack   string `json:\"back\" query:\"back\" form:\"back\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\"`\n-\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n }\n"
                 }
             ],
             "date": 1717048159374,
