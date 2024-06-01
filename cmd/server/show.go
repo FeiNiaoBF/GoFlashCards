@@ -11,6 +11,7 @@ import (
 var filt *model.Filtype
 
 func (server *Server) ShowAll(c echo.Context) error {
+	filt = model.NewFilt("all", model.All)
 	cards, err := server.getAllCardsHelper(c)
 	if err != nil {
 		return server.errorRequest(c, err)
@@ -49,7 +50,6 @@ func (server *Server) ShowKnow(c echo.Context) error {
 		}
 		return view.RenderHelper(c, view.ShowHandler(cards, outTags, filt))
 	} else {
-		filt = model.NewFilt(name, model.All)
 		return server.ShowAll(c)
 	}
 }
