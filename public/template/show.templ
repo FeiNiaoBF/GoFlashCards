@@ -1,45 +1,72 @@
 package view
 
-templ ShowHandler() {
+import (
+	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	"strconv"
+)
+
+templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	@Base() {
-		// <div class="page-header">
-		//     <h2>{{ len .Cards }} Card{{ if ne (len .Cards) 1 }}s{{ end }}</h2>
-		// </div>
-		// <div class="btn-group btn-group-md" role="group" aria-label="filters">
-		//     <a href="/filter_cards?filter_name=all" class="btn btn-{{ if eq .FilterName "all" }}primary{{ else }}default{{ end }}">all</a>
-		//     {{ range .Tags }}
-		//         <a href="/filter_cards?filter_name={{.ID}}" class="btn btn-{{ if eq .FilterName .ID }}primary{{ else }}default{{ end }}">{{.TagName}}</a>
-		//     {{ end }}
-		//     <a href="/filter_cards?filter_name=known" class="btn btn-{{ if eq .FilterName "known" }}primary{{ else }}default{{ end }}">known</a>
-		//     <a href="/filter_cards?filter_name=unknown" class="btn btn-{{ if eq .FilterName "unknown" }}primary{{ else }}default{{ end }}">unknown</a>
-		// </div>
-		// <br />
-		// <br />
-		// <table class="table table-bordered">
-		// </table>
+		<div class="page-header">
+			<h2>Show Cards</h2>
+		</div>
+		<div class="btn-group btn-group-md" role="group" aria-label="filters">
+			<a href="" class={ filterName("") }>all</a>
+			<a href="" class={ filterName("") }>known</a>
+			<a href="" class={ filterName("") }>unknown</a>
+		</div>
+		<br/>
+		<br/>
+		<div>
+			<table calss="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						// <th scope="col">Front</th>
+						// <th scope="col">Back</th>
+					</tr>
+				</thead>
+				<tbody>
+					@tableCrads(cards)
+				</tbody>
+			</table>
+		</div>
 	}
 }
 
-// {{ range .Cards }}
-//     <tr>
-//         <td>
-//             <a href="/edit?card_id={{.ID}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-//         </td>
-//         <td class="cardContent">
-//             <h4>
-//                 {{ .Front }}
-//             </h4>
-//             {{ if eq .Type 1 }}
-//                 {{ .Back | replace "\n" "<br />" | safe }}
-//             {{ else }}
-//                 <pre><code>{{ .Back | html | safe }}</code></pre>
-//             {{ end }}
-//         </td>
-//     </tr>
-// {{ else }}
-//     <tr>
-//         <td>
-//             <em>No cards to show.</em>
-//         </td>
-//     </tr>
-// {{ end }}
+templ tableCrads(cards []model.CardOutput) {
+	if len(cards) != 0 {
+		for ind, card := range cards {
+			<tr>
+				<th scope="row">{ strconv.Itoa(ind) }</th>
+				<td class="cardContent">
+					<h4>
+						{ card.Front }
+					</h4>
+				</td>
+				<td>
+					<pre><code>{ card.Back }</code></pre>
+				</td>
+				<td>
+					<a href="" class="btn btn-xs btn-primary">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</a>
+				</td>
+			</tr>
+		}
+	} else {
+		<tr>
+			<td>
+				<em>No cards to show.</em>
+			</td>
+		</tr>
+	}
+}
+
+func filterName(filterName string) string {
+	if filterName == "" {
+		return "btn btn-default"
+	} else {
+		return "btn btn-primary"
+	}
+}

@@ -2,6 +2,7 @@ package view
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	"strconv"
 )
 
 // URL: /tag method: GET
@@ -14,10 +15,20 @@ templ TagsHandler(tags []model.TagOutput) {
 					<label for="tagName">Tag name</label>
 					<input type="text" name="tagName" id="tagName" class="form-control"/>
 				</div>
+				// TODO: Add content
+				{ children... }
 				<div class="form-group">
 					<button type="submit" class="saveButton btn btn-lg btn-primary">Save</button>
 				</div>
 			</form>
+		</div>
+		<div class="container">
+			@tagsPage(tags)
+		</div>
+		<br/>
+		<br/>
+		<div>
+			@tableTags(tags)
 		</div>
 	}
 }
@@ -28,5 +39,63 @@ templ AddTagsHandler(tags []model.TagOutput) {
 		<div>
 			<p class="text-center text-success">New card was successfully added.</p>
 		</div>
+	}
+}
+
+// URL: /tag/edit method:
+templ tagsPage(tags []model.TagOutput) {
+	<h2>
+		if len(tags) == 1 {
+			One Tag
+		} else {
+			{ lenTags(len(tags)) } Tags
+		}
+	</h2>
+}
+
+func lenTags(size int) string {
+	return strconv.Itoa(size)
+}
+
+templ tableTags(tags []model.TagOutput) {
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			@taglist(tags)
+		</tbody>
+	</table>
+}
+
+templ taglist(tags []model.TagOutput) {
+	if len(tags) != 0 {
+		for ind, tag := range tags {
+			<tr>
+				<tb>
+					<th scope="row">{ strconv.Itoa(ind) }</th>
+				</tb>
+				<td calss="tagContent">
+					<h4>
+						{ tag.Name }
+					</h4>
+				</td>
+				<td>
+					<a href="" class="btn btn-xs btn-primary">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</a>
+				</td>
+			</tr>
+		}
+	} else {
+		<tr>
+			<td>
+				<em>No tags to show.</em>
+			</td>
+		</tr>
 	}
 }

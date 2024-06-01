@@ -2,6 +2,7 @@ package view
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	"strconv"
 )
 
 // URL: /card method: GET
@@ -11,7 +12,7 @@ templ CardHandler(cards []model.CardOutput, tags []model.TagOutput) {
 			<h2>Add a Card</h2>
 			<form action="/card/add" method="post" class="cardForm">
 				<div class="form-group">
-					@tagList(tags)
+					@tagsList(tags)
 				</div>
 				<div class="form-group fieldFront">
 					<label for="front">Front of Card</label>
@@ -47,7 +48,7 @@ templ AddCardHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	}
 }
 
-templ tagList(tags []model.TagOutput) {
+templ tagsList(tags []model.TagOutput) {
 	<div class="cardList">
 		for _, tag := range tags {
 			<label for={ tag.Name } class="toggleButton btn btn-default btn-lg">
@@ -62,10 +63,14 @@ templ cardPage(cards []model.CardOutput) {
 	<div>
 		<h2>
 			if len(cards) == 1 {
-				Card
+				One Card
 			} else {
-				Cards
+				{ lenCards(len(cards)) } Cards
 			}
 		</h2>
 	</div>
+}
+
+func lenCards(size int) string {
+	return strconv.Itoa(size)
 }

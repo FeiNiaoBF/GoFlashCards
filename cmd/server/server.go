@@ -60,9 +60,12 @@ func (server *Server) setRouter() {
 	router.Group("/tag")
 	router.GET("/tag", server.getAllTags)
 	router.POST("/tag/add", server.createTags)
-	// router.PUT("/tag/update/:id", server.updateTag)
+	// router.GET("/tag/edit", )
+	// router.PUT("/tag/update", server.updateTag)
 	// router.DELETE("/tag/delete/:id", server.deleteTag)
 
+	router.Group("/show")
+	router.GET("/show", server.ShowHandler)
 	server.router = router
 }
 

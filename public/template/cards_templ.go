@@ -12,6 +12,7 @@ import "bytes"
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
+	"strconv"
 )
 
 // URL: /card method: GET
@@ -38,7 +39,7 @@ func CardHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = tagList(tags).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = tagsList(tags).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -114,7 +115,7 @@ func AddCardHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Comp
 	})
 }
 
-func tagList(tags []model.TagOutput) templ.Component {
+func tagsList(tags []model.TagOutput) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -139,7 +140,7 @@ func tagList(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 53, Col: 24}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 54, Col: 24}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -152,7 +153,7 @@ func tagList(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 54, Col: 14}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 55, Col: 14}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -165,7 +166,7 @@ func tagList(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(tag.ID)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 55, Col: 50}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 56, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -178,7 +179,7 @@ func tagList(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 55, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 56, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -218,12 +219,21 @@ func cardPage(cards []model.CardOutput) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if len(cards) == 1 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Card")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("One Card")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Cards")
+			var templ_7745c5c3_Var11 string
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(lenCards(len(cards)))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/cards.templ`, Line: 68, Col: 26}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" Cards")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -237,4 +247,8 @@ func cardPage(cards []model.CardOutput) templ.Component {
 		}
 		return templ_7745c5c3_Err
 	})
+}
+
+func lenCards(size int) string {
+	return strconv.Itoa(size)
 }
