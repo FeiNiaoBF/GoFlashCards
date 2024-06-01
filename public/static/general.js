@@ -39,7 +39,7 @@ $(document).ready(function(){
                 $('.saveButton').hide();
             } else {
                 $('.toggleButton').removeClass('toggleSelected');
-            
+
                 if(checkedId === undefined) {
                     $(this).addClass('toggleSelected');
                 } else {

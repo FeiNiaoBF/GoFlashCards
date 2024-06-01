@@ -1,6 +1,7 @@
 package server
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -146,6 +147,7 @@ func (server *Server) getCardByTagHelper(c echo.Context, tagid int) ([]model.Car
 	return outCard, nil
 }
 
+// edit card method: PUT
 func (server *Server) updateCard(c echo.Context) error {
 	var card model.CardInput
 	ctx := c.Request().Context()
@@ -177,6 +179,49 @@ func (server *Server) updateCard(c echo.Context) error {
 	// Use the newCard variable as needed
 
 	return c.JSON(http.StatusOK, outCard)
+}
+
+// upKnowCard card is know Handler
+func (server *Server) upKnowCard(c echo.Context) error {
+	ctx := c.Request().Context()
+
+	id := c.Param("id")
+	log.Println(id)
+	cardId, err := strconv.Atoi(id)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+	arg := sqlc.UpdateKnowardsParams{
+		ID:   int64(cardId),
+		Know: true,
+	}
+	var upCard sqlc.Card
+	upCard, err = server.store.UpdateKnowards(ctx, arg)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+
+	outCard := model.CardOutput{
+		ID:     int(upCard.ID),
+		Front:  upCard.Front,
+		Back:   upCard.Back,
+		TagsID: upCard.TagsID,
+		Know:   upCard.Know,
+	}
+
+	log.Println(outCard.Know)
+
+	cards, err := server.getCardByTagHelper(c, int(outCard.TagsID))
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+
+	outTags, err := server.getAllTagsHelper(c)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
+
+	return view.RenderHelper(c, view.LookAllCardHandler(cards, outTags, int(outCard.TagsID), int(outCard.ID)))
 }
 
 func (server *Server) deleteCard(c echo.Context) error {

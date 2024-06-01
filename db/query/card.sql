@@ -23,6 +23,11 @@ SET front = $2,
     tags_id = $4
 WHERE id = $1
 RETURNING *;
+-- name: UpdateKnowards :one
+UPDATE cards
+SET know = $2
+WHERE id = $1
+RETURNING *;
 -- name: DeleteCards :exec
 DELETE FROM cards
 WHERE id = $1;

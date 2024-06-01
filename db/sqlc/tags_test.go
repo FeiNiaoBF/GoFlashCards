@@ -2,9 +2,10 @@ package sqlc
 
 import (
 	"context"
+	"testing"
+
 	"github.com/FeiNiaoBF/GoFlashCards/util"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestCreateTag(t *testing.T) {

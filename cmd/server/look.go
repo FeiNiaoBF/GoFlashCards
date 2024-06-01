@@ -1,7 +1,6 @@
 package server
 
 import (
-	"log"
 	"strconv"
 
 	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
@@ -36,8 +35,8 @@ func (server *Server) lookKnowCard(c echo.Context) error {
 func (server *Server) lookCardByTag(c echo.Context) error {
 	tagId := c.Param("tid")
 	cardid := c.Param("cardid")
-	log.Print(tagId)
-	log.Print(cardid)
+	// log.Print(tagId)
+	// log.Print(cardid)
 	var err error
 	// set tag id
 	tid := 0

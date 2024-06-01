@@ -2,8 +2,9 @@ package view
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
-	_ "strconv"
+	"strconv"
 	"fmt"
+	"strconv"
 )
 
 templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
@@ -18,17 +19,6 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 		<hr/>
 		// Add content
 		{ children... }
-		<div class="row">
-			<div class="col-xs-12 text-center">
-				<br/>
-				<br/>
-				<br/>
-				<a href="" class="btn btn-default btn-sm">
-					<i class="fa fa-bookmark"></i>
-					bookmark this card (Test)
-				</a>
-			</div>
-		</div>
 	}
 }
 
@@ -45,15 +35,26 @@ templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId
 				</a>
 				&nbsp;
 				&nbsp;
-				<a href="" class="btn btn-success btn-lg">
+				<button id="putButton" class="btn btn-success btn-lg" data-card-id={ strconv.Itoa(cardId) }>
 					<i class="fa fa-check"></i>
 					I Know It
-				</a>
+				</button>
 				&nbsp;
 				&nbsp;
 				<a href={ templ.URL(nextCard(tagId, cardId, cards)) } class="btn btn-primary btn-lg">
 					Next Card
 					<i class="fa fa-arrow-right"></i>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<br/>
+				<br/>
+				<br/>
+				<a href="#" class="btn btn-default btn-sm">
+					<i class="fa fa-bookmark"></i>
+					now this card id is { strconv.Itoa(cardId) }
 				</a>
 			</div>
 		</div>
@@ -98,6 +99,10 @@ func tagCards(tagid int) string {
 
 func nextCard(tagid, cardid int, cards []model.CardOutput) string {
 	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
+}
+
+func knowCard(cardid int) string {
+	return fmt.Sprintf("/card/know/%d", cardid)
 }
 
 func tagLen(tags []model.TagOutput) int {

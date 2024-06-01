@@ -54,7 +54,7 @@ func (server *Server) setRouter() {
 	router.Group("/card")
 	router.GET("/card", server.getAllCards)
 	router.POST("/card/add", server.createCards)
-	// router.PUT("/card/update/:id", server.updateCard)
+	router.PUT("/card/know/:id", server.upKnowCard)
 	// router.DELETE("/card/delete/:id", server.deleteCard)
 
 	// tag group

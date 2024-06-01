@@ -238,3 +238,29 @@ func (q *Queries) UpdateCards(ctx context.Context, arg UpdateCardsParams) (Card,
 	)
 	return i, err
 }
+
+const updateKnowards = `-- name: UpdateKnowards :one
+UPDATE cards
+SET know = $2
+WHERE id = $1
+RETURNING id, front, back, know, tags_id, "add_Time"
+`
+
+type UpdateKnowardsParams struct {
+	ID   int64 `json:"id"`
+	Know bool  `json:"know"`
+}
+
+func (q *Queries) UpdateKnowards(ctx context.Context, arg UpdateKnowardsParams) (Card, error) {
+	row := q.db.QueryRow(ctx, updateKnowards, arg.ID, arg.Know)
+	var i Card
+	err := row.Scan(
+		&i.ID,
+		&i.Front,
+		&i.Back,
+		&i.Know,
+		&i.TagsID,
+		&i.AddTime,
+	)
+	return i, err
+}

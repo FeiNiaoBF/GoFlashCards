@@ -22,6 +22,7 @@ type Querier interface {
 	ListCards(ctx context.Context, arg ListCardsParams) ([]Card, error)
 	ListTags(ctx context.Context, arg ListTagsParams) ([]Tag, error)
 	UpdateCards(ctx context.Context, arg UpdateCardsParams) (Card, error)
+	UpdateKnowards(ctx context.Context, arg UpdateKnowardsParams) (Card, error)
 	UpdateTags(ctx context.Context, arg UpdateTagsParams) (Tag, error)
 }
 
