@@ -15,7 +15,7 @@ import (
 	"strconv"
 )
 
-func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Component {
+func ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Filtype) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -38,12 +38,12 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var3 = []any{filterName("")}
+			var templ_7745c5c3_Var3 = []any{filterName(f.Ty, model.All)}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"\" class=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/show/all\" class=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -56,16 +56,16 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">all</a> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">All</a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var5 = []any{filterName("")}
+			var templ_7745c5c3_Var5 = []any{filterName(f.Ty, model.Know)}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var5...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"\" class=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/show/know\" class=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -78,16 +78,16 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">known</a> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Know</a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 = []any{filterName("")}
+			var templ_7745c5c3_Var7 = []any{filterName(f.Ty, model.Unknown)}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var7...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"\" class=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/show/unknow\" class=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -100,7 +100,7 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">unknown</a></div><br><br><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Unknown</a></div><br><br><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -200,10 +200,10 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 	})
 }
 
-func filterName(filterName string) string {
-	if filterName == "" {
-		return "btn btn-default"
-	} else {
+func filterName(filterName int, ty int) string {
+	if filterName == ty {
 		return "btn btn-primary"
+	} else {
+		return "btn btn-default"
 	}
 }

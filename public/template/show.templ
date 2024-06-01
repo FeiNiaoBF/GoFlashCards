@@ -5,15 +5,15 @@ import (
 	"strconv"
 )
 
-templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput) {
+templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Filtype) {
 	@Base() {
 		<div class="page-header">
 			<h2>Show Cards</h2>
 		</div>
 		<div class="btn-group btn-group-md" role="group" aria-label="filters">
-			<a href="" class={ filterName("") }>all</a>
-			<a href="" class={ filterName("") }>known</a>
-			<a href="" class={ filterName("") }>unknown</a>
+			<a href="/show/all" class={ filterName(f.Ty, model.All) }>All</a>
+			<a href="/show/know" class={ filterName(f.Ty, model.Know) }>Know</a>
+			<a href="/show/unknow" class={ filterName(f.Ty, model.Unknown) }>Unknown</a>
 		</div>
 		<br/>
 		<br/>
@@ -68,10 +68,10 @@ templ tableCrads(cards []model.CardOutput) {
 	}
 }
 
-func filterName(filterName string) string {
-	if filterName == "" {
-		return "btn btn-default"
-	} else {
+func filterName(filterName int, ty int) string {
+	if filterName == ty {
 		return "btn btn-primary"
+	} else {
+		return "btn btn-default"
 	}
 }

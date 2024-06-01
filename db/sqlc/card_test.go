@@ -2,10 +2,11 @@ package sqlc
 
 import (
 	"context"
-	"github.com/FeiNiaoBF/GoFlashCards/util"
-	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
+
+	"github.com/FeiNiaoBF/GoFlashCards/util"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCreateCards(t *testing.T) {
@@ -36,7 +37,17 @@ func TestGetCard(t *testing.T) {
 	require.Equal(t, tCard.ID, card.ID)
 	require.Equal(t, tCard.Know, card.Know)
 	require.WithinDuration(t, tCard.AddTime.Time, card.AddTime.Time, time.Second)
+}
 
+func TestGetCardByKnown(t *testing.T) {
+	cards, err := testQueries.GetCardByKnow(context.Background(), false)
+	require.NoError(t, err)
+	require.NotEmpty(t, cards)
+	// content
+
+	for _, card := range cards {
+		require.Equal(t, card.Know, false)
+	}
 }
 
 // TODO: How do a good test here

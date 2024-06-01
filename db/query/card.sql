@@ -30,3 +30,7 @@ WHERE id = $1;
 SELECT *
 FROM cards
 WHERE tags_id = $1;
+-- name: GetCardByKnow :many
+SELECT *
+FROM cards
+WHERE know = $1;

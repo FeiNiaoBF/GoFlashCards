@@ -99,6 +99,39 @@ func (q *Queries) GetCard(ctx context.Context, id int64) (Card, error) {
 	return i, err
 }
 
+const getCardByKnow = `-- name: GetCardByKnow :many
+SELECT id, front, back, know, tags_id, "add_Time"
+FROM cards
+WHERE know = $1
+`
+
+func (q *Queries) GetCardByKnow(ctx context.Context, know bool) ([]Card, error) {
+	rows, err := q.db.Query(ctx, getCardByKnow, know)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Card
+	for rows.Next() {
+		var i Card
+		if err := rows.Scan(
+			&i.ID,
+			&i.Front,
+			&i.Back,
+			&i.Know,
+			&i.TagsID,
+			&i.AddTime,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getCardByTag = `-- name: GetCardByTag :many
 SELECT id, front, back, know, tags_id, "add_Time"
 FROM cards

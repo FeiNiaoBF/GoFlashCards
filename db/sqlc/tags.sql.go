@@ -33,7 +33,8 @@ func (q *Queries) DeleteTags(ctx context.Context, id int64) error {
 }
 
 const getAllTags = `-- name: GetAllTags :many
-SELECT id, name FROM tags
+SELECT id, name
+FROM tags
 ORDER BY id
 `
 
@@ -58,8 +59,10 @@ func (q *Queries) GetAllTags(ctx context.Context) ([]Tag, error) {
 }
 
 const getTags = `-- name: GetTags :one
-SELECT id, name FROM tags 
-WHERE id = $1 LIMIT 1
+SELECT id, name
+FROM tags
+WHERE id = $1
+LIMIT 1
 `
 
 func (q *Queries) GetTags(ctx context.Context, id int64) (Tag, error) {
@@ -70,10 +73,10 @@ func (q *Queries) GetTags(ctx context.Context, id int64) (Tag, error) {
 }
 
 const listTags = `-- name: ListTags :many
-SELECT id, name FROM tags
+SELECT id, name
+FROM tags
 ORDER BY id
-LIMIT $1
-OFFSET $2
+LIMIT $1 OFFSET $2
 `
 
 type ListTagsParams struct {

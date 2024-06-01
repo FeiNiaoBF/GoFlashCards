@@ -16,6 +16,7 @@ type Querier interface {
 	GetAllCard(ctx context.Context) ([]Card, error)
 	GetAllTags(ctx context.Context) ([]Tag, error)
 	GetCard(ctx context.Context, id int64) (Card, error)
+	GetCardByKnow(ctx context.Context, know bool) ([]Card, error)
 	GetCardByTag(ctx context.Context, tagsID int32) ([]Card, error)
 	GetTags(ctx context.Context, id int64) (Tag, error)
 	ListCards(ctx context.Context, arg ListCardsParams) ([]Card, error)

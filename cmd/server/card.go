@@ -102,6 +102,28 @@ func (server *Server) getListCardHelper(c echo.Context, page sqlc.ListCardsParam
 	return outCard, nil
 }
 
+// getAllCardsHelper is a helper function
+func (server *Server) getKnowCardsHelper(c echo.Context, know bool) ([]model.CardOutput, error) {
+	ctx := c.Request().Context()
+
+	cards, err := server.store.GetCardByKnow(ctx, know)
+	if err != nil {
+		return nil, err
+	}
+
+	outCard := make([]model.CardOutput, len(cards))
+	for i, card := range cards {
+		outCard[i] = model.CardOutput{
+			Front:  card.Front,
+			Back:   card.Back,
+			TagsID: card.TagsID,
+			Know:   card.Know,
+		}
+	}
+
+	return outCard, nil
+}
+
 func (server *Server) updateCard(c echo.Context) error {
 	var card model.CardInput
 	ctx := c.Request().Context()
