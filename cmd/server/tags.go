@@ -108,3 +108,20 @@ func (server *Server) getAllTagsHelper(c echo.Context) ([]model.TagOutput, error
 
 	return outTag, nil
 }
+
+// helper function to get a tag
+func (server *Server) getTagHelper(c echo.Context, id int32) (model.TagOutput, error) {
+	ctx := c.Request().Context()
+
+	tag, err := server.store.GetTags(ctx, int64(id))
+	if err != nil {
+		return model.TagOutput{}, server.errorRequest(c, err)
+	}
+
+	outTag := model.TagOutput{
+		ID:   strconv.Itoa(int(tag.ID)),
+		Name: tag.Name,
+	}
+
+	return outTag, nil
+}

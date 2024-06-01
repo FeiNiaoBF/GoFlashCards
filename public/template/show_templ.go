@@ -188,7 +188,7 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				}
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><td><p class=\"text-warning\"><em>No cards to show.</em></p></td></tr>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><td><p class=\"text-danger\"><em>No cards to show.</em></p></td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

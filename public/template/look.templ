@@ -3,6 +3,7 @@ package view
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
 	_ "strconv"
+	"fmt"
 )
 
 templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
@@ -10,7 +11,7 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 		<div class="row">
 			<div class="col-xs-12 text-center">
 				<div class="btn-group btn-group-lg" role="group" aria-label="card type">
-					// TODO: add a button for all cards
+					@forTag(tags)
 				</div>
 			</div>
 		</div>
@@ -22,7 +23,7 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 						<br/>
 						<br/>
 						// TODO: add a button for previous card
-                        <a href="wewetw"><i class="fa fa-chevron-left fa-5x"></i></a>
+						<a href=""><i class="fa fa-chevron-left fa-5x"></i></a>
 					</div>
 				</div>
 			</div>
@@ -81,10 +82,21 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 	}
 }
 
-// {% for tag in tags %}
-//
-// {% endfor %}
+templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput) {
+	@LookHandler(cards, tags) {
+	}
+}
 
-// templ forTag(tags []model.TagOutput){
-// <a href="{{ url_for('memorize', card_type=tag.id) }}" class="btn btn-{{ "primary" if card_type == tag.id else "default" }}">{{tag.tagName}}</a>
-// }
+templ forTag(tags []model.TagOutput) {
+	for index, tag := range tags {
+		<a href={ templ.URL(tagCards(index)) } class="btn btn-default">{ tag.Name }</a>
+	}
+}
+
+func tagCards(tagid int) string {
+	return fmt.Sprintf("/look/tag/%d", tagid)
+}
+
+func tagLen(tags []model.TagOutput) int {
+	return len(tags)
+}

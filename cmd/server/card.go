@@ -102,11 +102,33 @@ func (server *Server) getListCardHelper(c echo.Context, page sqlc.ListCardsParam
 	return outCard, nil
 }
 
-// getAllCardsHelper is a helper function
+// getAllCardsHelper is a helper function to get all cards is know/unknow
 func (server *Server) getKnowCardsHelper(c echo.Context, know bool) ([]model.CardOutput, error) {
 	ctx := c.Request().Context()
 
 	cards, err := server.store.GetCardByKnow(ctx, know)
+	if err != nil {
+		return nil, err
+	}
+
+	outCard := make([]model.CardOutput, len(cards))
+	for i, card := range cards {
+		outCard[i] = model.CardOutput{
+			Front:  card.Front,
+			Back:   card.Back,
+			TagsID: card.TagsID,
+			Know:   card.Know,
+		}
+	}
+
+	return outCard, nil
+}
+
+// getCardByTag is a helper function to get card by tag
+func (server *Server) getCardByTagHelper(c echo.Context, tagid int) ([]model.CardOutput, error) {
+	ctx := c.Request().Context()
+
+	cards, err := server.store.GetCardByTag(ctx, int32(tagid))
 	if err != nil {
 		return nil, err
 	}
@@ -173,25 +195,3 @@ func (server *Server) deleteCard(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "Deleted successfully")
 }
-
-// func (server *Server) getAllCards(c echo.Context) error {
-// 	ctx := context.Background()
-// 	cards, err := server.store.ListCards(ctx)
-// 	if err != nil {
-// 		return server.errorRequest(c, err)
-// 	}
-
-// 	outCards := make([]model.CardOutput, len(cards))
-// 	for i, card := range cards {
-// 		outCards[i] = model.CardOutput{
-// 			Front:  card.Front,
-// 			Back:   card.Back,
-// 			TagsID: card.TagsID,
-// 			Know:   card.Know,
-// 		}
-// 	}
-
-// 	return c.Render(http.StatusOK, "add_card.html", map[string]interface{}{
-// 		"cards": cards,
-// 	})
-// }
