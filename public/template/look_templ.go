@@ -43,7 +43,15 @@ func LookHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div><hr><div class=\"row memorizePanel\"><div class=\"col-xs-2\"><div class=\"alignContainer\"><div class=\"alignMiddle text-right\"><br><br><a href=\"\"><i class=\"fa fa-chevron-left fa-5x\"></i></a></div></div></div><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel panel-default cardFront\"><div class=\"panel-body\"><div class=\"alignContainer\"><div class=\"alignMiddle frontText\"><h3 class=\"text-center\">Test</h3></div></div></div></div><div class=\"panel panel-primary cardBack\"><div class=\"panel-body\"><div class=\"alignContainer\"><div class=\"alignMiddle frontText\"></div></div></div></div></div></div><div class=\"row\"><div class=\"col-xs-12 text-center\"><a href=\"javascript:\" class=\"btn btn-primary btn-lg flipCard\"><i class=\"fa fa-exchange\"></i> Flip Card</a> &nbsp; &nbsp; <a href=\"\" class=\"btn btn-success btn-lg\"><i class=\"fa fa-check\"></i> I Know It</a> &nbsp; &nbsp; <a href=\"\" class=\"btn btn-primary btn-lg\">Next Card <i class=\"fa fa-arrow-right\"></i></a></div></div><div class=\"row\"><div class=\"col-xs-12 text-center\"><br><br><br><a href=\"\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-bookmark\"></i> bookmark this card (Test)</a></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div><hr> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div class=\"row\"><div class=\"col-xs-12 text-center\"><br><br><br><a href=\"\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-bookmark\"></i> bookmark this card (Test)</a></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -63,7 +71,7 @@ func LookHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 	})
 }
 
-func LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Component {
+func LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId, cardId int) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -82,12 +90,83 @@ func LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput) templ.
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"row memorizePanel\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = nowCard(cards[cardId]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"row\"><div class=\"col-xs-12 text-center\"><a href=\"javascript:\" class=\"btn btn-primary btn-lg flipCard\"><i class=\"fa fa-exchange\"></i> Flip Card</a> &nbsp; &nbsp; <a href=\"\" class=\"btn btn-success btn-lg\"><i class=\"fa fa-check\"></i> I Know It</a> &nbsp; &nbsp; <a href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 templ.SafeURL = templ.URL(nextCard(tagId, cardId, cards))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var5)))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"btn btn-primary btn-lg\">Next Card <i class=\"fa fa-arrow-right\"></i></a></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 			if !templ_7745c5c3_IsBuffer {
 				_, templ_7745c5c3_Err = io.Copy(templ_7745c5c3_W, templ_7745c5c3_Buffer)
 			}
 			return templ_7745c5c3_Err
 		})
 		templ_7745c5c3_Err = LookHandler(cards, tags).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func nowCard(card model.CardOutput) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var6 == nil {
+			templ_7745c5c3_Var6 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel panel-default cardFront\"><div class=\"panel-body\"><div class=\"alignContainer\"><div class=\"alignMiddle frontText\"><h3 class=\"text-center\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(card.Front)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 70, Col: 42}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h3></div></div></div></div><div class=\"panel panel-primary cardBack\"><div class=\"panel-body\"><div class=\"alignContainer\"><div class=\"alignMiddle frontText\"><div class=\"text-center largerText\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var8 string
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(card.Back)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 80, Col: 18}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -106,9 +185,9 @@ func forTag(tags []model.TagOutput) templ.Component {
 			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var5 == nil {
-			templ_7745c5c3_Var5 = templ.NopComponent
+		templ_7745c5c3_Var9 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var9 == nil {
+			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		for index, tag := range tags {
@@ -116,8 +195,8 @@ func forTag(tags []model.TagOutput) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 templ.SafeURL = templ.URL(tagCards(index))
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var6)))
+			var templ_7745c5c3_Var10 templ.SafeURL = templ.URL(tagCards(index))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var10)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -125,12 +204,12 @@ func forTag(tags []model.TagOutput) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
+			var templ_7745c5c3_Var11 string
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 93, Col: 75}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 91, Col: 75}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -147,9 +226,24 @@ func forTag(tags []model.TagOutput) templ.Component {
 }
 
 func tagCards(tagid int) string {
-	return fmt.Sprintf("/look/tag/%d", tagid)
+	return fmt.Sprintf("/look/tag/%d/0", tagid)
+}
+
+func nextCard(tagid, cardid int, cards []model.CardOutput) string {
+	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
 }
 
 func tagLen(tags []model.TagOutput) int {
 	return len(tags)
+}
+
+func cardLen(cards []model.CardOutput) int {
+	return len(cards)
+}
+
+func next(cards []model.CardOutput, oldId int) int {
+	if oldId > 0 || oldId < cardLen(cards)-1 {
+		return oldId + 1
+	}
+	return 0
 }

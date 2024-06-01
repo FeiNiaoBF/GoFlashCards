@@ -16,37 +16,26 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 			</div>
 		</div>
 		<hr/>
+		// Add content
+		{ children... }
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<br/>
+				<br/>
+				<br/>
+				<a href="" class="btn btn-default btn-sm">
+					<i class="fa fa-bookmark"></i>
+					bookmark this card (Test)
+				</a>
+			</div>
+		</div>
+	}
+}
+
+templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId, cardId int) {
+	@LookHandler(cards, tags) {
 		<div class="row memorizePanel">
-			<div class="col-xs-2">
-				<div class="alignContainer">
-					<div class="alignMiddle text-right">
-						<br/>
-						<br/>
-						// TODO: add a button for previous card
-						<a href=""><i class="fa fa-chevron-left fa-5x"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-8 col-xs-offset-2">
-				<div class="panel panel-default cardFront">
-					<div class="panel-body">
-						<div class="alignContainer">
-							<div class="alignMiddle frontText">
-								<h3 class="text-center">Test</h3>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-primary cardBack">
-					<div class="panel-body">
-						<div class="alignContainer">
-							<div class="alignMiddle frontText">
-								// TODO:
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			@nowCard(cards[cardId])
 		</div>
 		<div class="row">
 			<div class="col-xs-12 text-center">
@@ -62,29 +51,39 @@ templ LookHandler(cards []model.CardOutput, tags []model.TagOutput) {
 				</a>
 				&nbsp;
 				&nbsp;
-				<a href="" class="btn btn-primary btn-lg">
+				<a href={ templ.URL(nextCard(tagId, cardId, cards)) } class="btn btn-primary btn-lg">
 					Next Card
 					<i class="fa fa-arrow-right"></i>
-				</a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 text-center">
-				<br/>
-				<br/>
-				<br/>
-				<a href="" class="btn btn-default btn-sm">
-					<i class="fa fa-bookmark"></i>
-					bookmark this card (Test)
 				</a>
 			</div>
 		</div>
 	}
 }
 
-templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput) {
-	@LookHandler(cards, tags) {
-	}
+templ nowCard(card model.CardOutput) {
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="panel panel-default cardFront">
+			<div class="panel-body">
+				<div class="alignContainer">
+					<div class="alignMiddle frontText">
+						// TODO
+						<h3 class="text-center">{ card.Front }</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary cardBack">
+			<div class="panel-body">
+				<div class="alignContainer">
+					<div class="alignMiddle frontText">
+						<div class="text-center largerText">
+							{ card.Back }
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
 templ forTag(tags []model.TagOutput) {
@@ -94,9 +93,24 @@ templ forTag(tags []model.TagOutput) {
 }
 
 func tagCards(tagid int) string {
-	return fmt.Sprintf("/look/tag/%d", tagid)
+	return fmt.Sprintf("/look/tag/%d/0", tagid)
+}
+
+func nextCard(tagid, cardid int, cards []model.CardOutput) string {
+	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
 }
 
 func tagLen(tags []model.TagOutput) int {
 	return len(tags)
+}
+
+func cardLen(cards []model.CardOutput) int {
+	return len(cards)
+}
+
+func next(cards []model.CardOutput, oldId int) int {
+	if oldId > 0 || oldId < cardLen(cards)-1 {
+		return oldId + 1
+	}
+	return 0
 }

@@ -34,13 +34,30 @@ func (server *Server) lookKnowCard(c echo.Context) error {
 }
 
 func (server *Server) lookCardByTag(c echo.Context) error {
-	id := c.Param("id")
-	log.Print(id)
-	tagId, err := strconv.Atoi(id)
-	if err != nil {
-		return server.errorRequest(c, err)
+	tagId := c.Param("tid")
+	cardid := c.Param("cardid")
+	log.Print(tagId)
+	log.Print(cardid)
+	var err error
+	// set tag id
+	tid := 0
+	if tagId == "" {
+		tid = 0
+	} else {
+		tid, err = strconv.Atoi(tagId)
+		if err != nil {
+			return server.errorRequest(c, err)
+		}
 	}
-	cards, err := server.getCardByTagHelper(c, tagId)
+	// set card id
+	cid := 0
+	if cardid == "" {
+		cid = 0
+	} else {
+		cid, _ = strconv.Atoi(cardid)
+	}
+
+	cards, err := server.getCardByTagHelper(c, tid)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
@@ -50,5 +67,5 @@ func (server *Server) lookCardByTag(c echo.Context) error {
 		return server.errorRequest(c, err)
 	}
 
-	return view.RenderHelper(c, view.LookAllCardHandler(cards, outTags))
+	return view.RenderHelper(c, view.LookAllCardHandler(cards, outTags, tid, cid))
 }

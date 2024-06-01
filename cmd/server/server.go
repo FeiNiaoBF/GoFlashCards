@@ -73,7 +73,7 @@ func (server *Server) setRouter() {
 
 	router.Group("/look")
 	router.GET("/look", server.lookCard)
-	router.GET("/look/tag/:id", server.lookCardByTag)
+	router.GET("/look/tag/:tid/:cardid", server.lookCardByTag)
 	// router.POST("/look", server.lookCard)
 	router.GET("/look/know", server.lookKnowCard)
 
