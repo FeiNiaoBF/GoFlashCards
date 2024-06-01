@@ -18,12 +18,13 @@ templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput) {
 		<br/>
 		<br/>
 		<div>
-			<table calss="table table-bordered">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						// <th scope="col">Front</th>
-						// <th scope="col">Back</th>
+						<th scope="col">Front</th>
+						<th scope="col">Back</th>
+						<th scope="col">Know</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,14 +39,18 @@ templ tableCrads(cards []model.CardOutput) {
 	if len(cards) != 0 {
 		for ind, card := range cards {
 			<tr>
-				<th scope="row">{ strconv.Itoa(ind) }</th>
-				<td class="cardContent">
+				<tb>
+					<th scope="row">{ strconv.Itoa(ind) }</th>
+				</tb>
+				<td calss="cardContent">
 					<h4>
 						{ card.Front }
 					</h4>
 				</td>
-				<td>
-					<pre><code>{ card.Back }</code></pre>
+				<td calss="cardContent">
+					<h4>
+						{ card.Back }
+					</h4>
 				</td>
 				<td>
 					<a href="" class="btn btn-xs btn-primary">

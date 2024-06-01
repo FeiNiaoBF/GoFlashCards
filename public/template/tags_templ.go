@@ -185,7 +185,7 @@ func tableTags(tags []model.TagOutput) templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Name</th><th scope=\"col\">Edit</th></tr></thead> <tbody>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<table class=\"table table-bordere\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Name</th><th scope=\"col\">Edit</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

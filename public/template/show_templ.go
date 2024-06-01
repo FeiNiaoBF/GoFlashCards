@@ -100,7 +100,7 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput) templ.Compone
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">unknown</a></div><br><br><div><table calss=\"table table-bordered\"><thead><tr><th scope=\"col\">#</th></tr></thead> <tbody>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">unknown</a></div><br><br><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -143,46 +143,46 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 		ctx = templ.ClearChildren(ctx)
 		if len(cards) != 0 {
 			for ind, card := range cards {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><th scope=\"row\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><tb><th scope=\"row\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(ind))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 41, Col: 39}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 43, Col: 40}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</th><td class=\"cardContent\"><h4>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</th></tb><td calss=\"cardContent\"><h4>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(card.Front)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 44, Col: 18}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 47, Col: 18}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td><pre><code>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td calss=\"cardContent\"><h4>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var12 string
 				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(card.Back)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 48, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 52, Col: 17}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</code></pre></td><td><a href=\"\" class=\"btn btn-xs btn-primary\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></td></tr>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td><a href=\"\" class=\"btn btn-xs btn-primary\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></td></tr>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
