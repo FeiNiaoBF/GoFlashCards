@@ -11,6 +11,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// createCards URL: /card/add method: POST
 func (server *Server) createCards(c echo.Context) error {
 	var card model.CardInput
 	ctx := c.Request().Context()
@@ -45,7 +46,7 @@ func (server *Server) createCards(c echo.Context) error {
 	return view.RenderHelper(c, view.AddCardHandler(outCard, outTags))
 }
 
-// /card:id method: GET
+// getAllCards URL: /card:id method: GET
 func (server *Server) getAllCards(c echo.Context) error {
 	outCard, err := server.getAllCardsHelper(c)
 	if err != nil {
@@ -59,6 +60,7 @@ func (server *Server) getAllCards(c echo.Context) error {
 	return view.RenderHelper(c, view.CardHandler(outCard, outTags))
 }
 
+// TODO: Refactor the HELPER methods
 // getAllCardsHelper is a helper function
 func (server *Server) getAllCardsHelper(c echo.Context) ([]model.CardOutput, error) {
 	ctx := c.Request().Context()
@@ -71,6 +73,7 @@ func (server *Server) getAllCardsHelper(c echo.Context) ([]model.CardOutput, err
 	outCard := make([]model.CardOutput, len(cards))
 	for i, card := range cards {
 		outCard[i] = model.CardOutput{
+			ID:     int(card.ID),
 			Front:  card.Front,
 			Back:   card.Back,
 			TagsID: card.TagsID,
@@ -93,6 +96,7 @@ func (server *Server) getListCardHelper(c echo.Context, page sqlc.ListCardsParam
 	outCard := make([]model.CardOutput, len(cards))
 	for i, card := range cards {
 		outCard[i] = model.CardOutput{
+			ID:     int(card.ID),
 			Front:  card.Front,
 			Back:   card.Back,
 			TagsID: card.TagsID,
@@ -115,6 +119,7 @@ func (server *Server) getKnowCardsHelper(c echo.Context, know bool) ([]model.Car
 	outCard := make([]model.CardOutput, len(cards))
 	for i, card := range cards {
 		outCard[i] = model.CardOutput{
+			ID:     int(card.ID),
 			Front:  card.Front,
 			Back:   card.Back,
 			TagsID: card.TagsID,
@@ -137,11 +142,32 @@ func (server *Server) getCardByTagHelper(c echo.Context, tagid int) ([]model.Car
 	outCard := make([]model.CardOutput, len(cards))
 	for i, card := range cards {
 		outCard[i] = model.CardOutput{
+			ID:     int(card.ID),
 			Front:  card.Front,
 			Back:   card.Back,
 			TagsID: card.TagsID,
 			Know:   card.Know,
 		}
+	}
+
+	return outCard, nil
+}
+
+// getCardById is a helper function to get card by id
+func (server *Server) getCardByIdHelper(c echo.Context, cardid int) (model.CardOutput, error) {
+	ctx := c.Request().Context()
+
+	card, err := server.store.GetCard(ctx, int64(cardid))
+	if err != nil {
+		return model.CardOutput{}, err
+	}
+
+	outCard := model.CardOutput{
+		ID:     int(card.ID),
+		Front:  card.Front,
+		Back:   card.Back,
+		TagsID: card.TagsID,
+		Know:   card.Know,
 	}
 
 	return outCard, nil
@@ -160,6 +186,7 @@ func (server *Server) updateCard(c echo.Context) error {
 		Front:  card.Front,
 		Back:   card.Back,
 		TagsID: card.TagsID,
+		Know:   card.Know,
 	}
 	// log.Println(arg)
 

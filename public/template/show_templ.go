@@ -12,7 +12,6 @@ import "bytes"
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
-	"strconv"
 )
 
 func ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Filtype) templ.Component {
@@ -148,9 +147,9 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var10 string
-				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(ind + 1))
+				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(ItoS(ind + 1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 43, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 42, Col: 34}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
@@ -163,7 +162,7 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(card.Front)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 47, Col: 18}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 46, Col: 18}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -176,13 +175,22 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				var templ_7745c5c3_Var12 string
 				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(card.Back)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 52, Col: 17}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 51, Col: 17}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td><a href=\"\" class=\"btn btn-xs btn-primary\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></td></tr>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td><a href=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var13 templ.SafeURL = templ.URL(updateURL(card.ID))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var13)))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"btn btn-xs btn-primary\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></td></tr>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

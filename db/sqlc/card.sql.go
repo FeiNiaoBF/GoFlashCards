@@ -208,7 +208,8 @@ const updateCards = `-- name: UpdateCards :one
 UPDATE cards
 SET front = $2,
     back = $3,
-    tags_id = $4
+    tags_id = $4,
+    know = $5
 WHERE id = $1
 RETURNING id, front, back, know, tags_id, "add_Time"
 `
@@ -218,6 +219,7 @@ type UpdateCardsParams struct {
 	Front  string `json:"front"`
 	Back   string `json:"back"`
 	TagsID int32  `json:"tags_id"`
+	Know   bool   `json:"know"`
 }
 
 func (q *Queries) UpdateCards(ctx context.Context, arg UpdateCardsParams) (Card, error) {
@@ -226,6 +228,7 @@ func (q *Queries) UpdateCards(ctx context.Context, arg UpdateCardsParams) (Card,
 		arg.Front,
 		arg.Back,
 		arg.TagsID,
+		arg.Know,
 	)
 	var i Card
 	err := row.Scan(

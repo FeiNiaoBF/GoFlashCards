@@ -37,12 +37,12 @@ templ cardList(cards []model.CardOutput) {
 			<td>
 				<div class="hidden">{ card.Back }</div>
 			</td>
-			<td>{ isKnow(card.Know) }</td>
+			<td>{ isKnowStr(card.Know) }</td>
 		</tr>
 	}
 }
 
-func isKnow(know bool) string {
+func isKnowStr(know bool) string {
 	if know {
 		return "了解"
 	}

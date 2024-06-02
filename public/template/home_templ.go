@@ -120,9 +120,9 @@ func cardList(cards []model.CardOutput) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(isKnow(card.Know))
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(isKnowStr(card.Know))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/home.templ`, Line: 40, Col: 26}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/home.templ`, Line: 40, Col: 29}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -140,7 +140,7 @@ func cardList(cards []model.CardOutput) templ.Component {
 	})
 }
 
-func isKnow(know bool) string {
+func isKnowStr(know bool) string {
 	if know {
 		return "了解"
 	}

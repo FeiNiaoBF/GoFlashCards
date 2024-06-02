@@ -2,7 +2,6 @@ package view
 
 import (
 	"github.com/FeiNiaoBF/GoFlashCards/cmd/model"
-	"strconv"
 )
 
 templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Filtype) {
@@ -40,7 +39,7 @@ templ tableCrads(cards []model.CardOutput) {
 		for ind, card := range cards {
 			<tr>
 				<tb>
-					<th scope="row">{ strconv.Itoa(ind+1) }</th>
+					<th scope="row">{ ItoS(ind+1) }</th>
 				</tb>
 				<td calss="cardContent">
 					<h4>
@@ -53,7 +52,8 @@ templ tableCrads(cards []model.CardOutput) {
 					</h4>
 				</td>
 				<td>
-					<a href="" class="btn btn-xs btn-primary">
+					// GET edit/card/:id
+					<a href={ templ.URL(updateURL(card.ID)) } class="btn btn-xs btn-primary">
 						<i class="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				</td>

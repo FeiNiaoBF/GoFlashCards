@@ -20,7 +20,8 @@ RETURNING *;
 UPDATE cards
 SET front = $2,
     back = $3,
-    tags_id = $4
+    tags_id = $4,
+    know = $5
 WHERE id = $1
 RETURNING *;
 -- name: UpdateKnowards :one

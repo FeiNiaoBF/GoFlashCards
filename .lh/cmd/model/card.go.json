@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 18,
+            "activePatchIndex": 21,
             "patches": [
                 {
                     "date": 1717048159374,
@@ -80,6 +80,18 @@
                 {
                     "date": 1717246597436,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n }\n \n type CardOutput struct {\n-\tID int `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n+\tID int `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n"
+                },
+                {
+                    "date": 1717312212233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,11 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n }\n \n type CardOutput struct {\n-\tID int `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n+\tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n+\tAddTime \n }\n"
+                },
+                {
+                    "date": 1717312218320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n package model\n \n+import \"time\"\n+\n type CardInput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n@@ -11,6 +13,6 @@\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n-\tAddTime \n+\tAddTime time.Time\n }\n"
+                },
+                {
+                    "date": 1717313931006,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,17 @@\n package model\n \n-import \"time\"\n-\n type CardInput struct {\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n }\n \n type CardOutput struct {\n \tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n-\tAddTime time.Time\n+\t// AddTime time.Time\n }\n"
                 }
             ],
             "date": 1717048159374,
