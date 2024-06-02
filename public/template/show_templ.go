@@ -99,7 +99,7 @@ func ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Filt
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Unknown</a></div><br><br><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Unknown</a></div><br><br><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th><th scope=\"col\">Edit</th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -149,7 +149,7 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(ItoS(ind + 1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 42, Col: 34}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 43, Col: 34}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
@@ -162,7 +162,7 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(card.Front)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 46, Col: 18}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 47, Col: 18}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -175,9 +175,22 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				var templ_7745c5c3_Var12 string
 				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(card.Back)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 51, Col: 17}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 52, Col: 17}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h4></td><td calss=\"cardContent\"><h4>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var13 string
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(isKnowStr(card.Know))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/show.templ`, Line: 57, Col: 28}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -185,8 +198,8 @@ func tableCrads(cards []model.CardOutput) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var13 templ.SafeURL = templ.URL(updateURL(card.ID))
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var13)))
+				var templ_7745c5c3_Var14 templ.SafeURL = templ.URL(updateURL(card.ID))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var14)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

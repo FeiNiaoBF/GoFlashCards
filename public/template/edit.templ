@@ -10,8 +10,7 @@ templ EditHandler(card model.CardOutput) {
 		<div class="well editPanel">
 			<h2>Edit Card { ItoS(card.ID) }</h2>
 			// TODO: form URL: /edit/
-            // { templ.URL(updateURL(card.ID)) }
-			<form action="" method="post" class="cardForm">
+			<form action={ templ.URL(updateURL(card.ID)) } method="post" class="cardForm">
 				<div class="form-group">
 					// TODO: for tag
 					// {% for tag in tags %}
@@ -37,14 +36,8 @@ templ EditHandler(card model.CardOutput) {
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
-						<div class="checkbox">
-							<label>
-								<input
-									type="checkbox"
-									name="known"
-									value={ isKnowBtn(card.Know) }
-								/> Known
-							</label>
+						<div>
+							@knowStr(card.Know)
 						</div>
 					</div>
 					<div class="col-xs-6 text-right">
@@ -56,13 +49,28 @@ templ EditHandler(card model.CardOutput) {
 					</div>
 				</div>
 				<hr/>
+				{ children... }
 				<div class="form-group">
-					// <input type="hidden" name="id" value={ ItoS(card.ID) }/>
-					<button type="submit" class="saveButton btn btn-lg btn-primary">Save</button>
+					<input type="hidden" name="id" value={ ItoS(card.ID) }/>
+					<button type="submit" class="btn btn-lg btn-primary">Save</button>
 				</div>
 			</form>
 		</div>
 	}
+}
+
+templ EditSucHadnler(card model.CardOutput) {
+	@EditHandler(card) {
+		<div>
+			<p class="text-center text-success">Update card was successfully added.</p>
+		</div>
+	}
+}
+
+templ knowStr(n bool) {
+	<p class="text-center text-uppercase bg-info">
+		<strong>{ isKnowBtn(n) }</strong>
+	</p>
 }
 
 func ItoS(n int) string {
@@ -71,9 +79,9 @@ func ItoS(n int) string {
 
 func isKnowBtn(n bool) string {
 	if n {
-		return "1 checked"
+		return "this is card you know."
 	}
-	return "1"
+	return "Don't Know, go review it."
 }
 
 func updateURL(cardID int) string {

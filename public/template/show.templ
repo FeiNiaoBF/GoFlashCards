@@ -24,6 +24,7 @@ templ ShowHandler(cards []model.CardOutput, tags []model.TagOutput, f *model.Fil
 						<th scope="col">Front</th>
 						<th scope="col">Back</th>
 						<th scope="col">Know</th>
+						<th scope="col">Edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,6 +50,11 @@ templ tableCrads(cards []model.CardOutput) {
 				<td calss="cardContent">
 					<h4>
 						{ card.Back }
+					</h4>
+				</td>
+				<td calss="cardContent">
+					<h4>
+						{ isKnowStr(card.Know) }
 					</h4>
 				</td>
 				<td>

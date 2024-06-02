@@ -55,7 +55,7 @@ func (server *Server) setRouter() {
 	router.GET("/card", server.getAllCards)
 	router.POST("/card/add", server.createCards)
 	router.PUT("/card/know/:id", server.upKnowCard)
-	//router.PUT("/card/update/:id", server.updateCard)
+	// router.PUT("/card/update/:id", server.updateCard)
 	//router.DELETE("/card/delete/:id", server.deleteCard)
 
 	// tag group
@@ -102,6 +102,7 @@ func (server *Server) setMiddle() {
 		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
 			logger.Info("request",
 				zap.String("URI", v.URI),
+				zap.String("method", v.Method),
 				zap.Int("status", v.Status),
 			)
 

@@ -1,7 +1,6 @@
 package server
 
 import (
-	"log"
 	"strconv"
 
 	view "github.com/FeiNiaoBF/GoFlashCards/public/template"
@@ -16,9 +15,6 @@ func (server *Server) editCard(c echo.Context) error {
 		return server.errorRequest(c, err)
 	}
 
-	log.Println(id)
-	// UPDATE CARD
-	// server.updateCard(c)
 	card, err := server.getCardByIdHelper(c, id)
 	if err != nil {
 		return server.errorRequest(c, err)

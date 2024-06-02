@@ -33,8 +33,6 @@ func (server *Server) createCards(c echo.Context) error {
 		// Handle the error
 		return server.errorRequest(c, err)
 	}
-	// TODO: Use log
-	c.Logger()
 	outCard, err := server.getAllCardsHelper(c)
 	if err != nil {
 		return server.errorRequest(c, err)
@@ -173,16 +171,24 @@ func (server *Server) getCardByIdHelper(c echo.Context, cardid int) (model.CardO
 	return outCard, nil
 }
 
-// edit card method: PUT
+// edit card method: POST
 func (server *Server) updateCard(c echo.Context) error {
 	var card model.CardInput
 	ctx := c.Request().Context()
+
+	cid := c.Param("id")
+
+	id, err := strconv.Atoi(cid)
+	if err != nil {
+		return server.errorRequest(c, err)
+	}
 	if err := c.Bind(&card); err != nil {
 		return server.errorRequest(c, err)
 	}
 
-	// log.Println(card)
+	log.Println(id)
 	arg := sqlc.UpdateCardsParams{
+		ID:     int64(id),
 		Front:  card.Front,
 		Back:   card.Back,
 		TagsID: card.TagsID,
@@ -197,6 +203,7 @@ func (server *Server) updateCard(c echo.Context) error {
 	}
 
 	outCard := model.CardOutput{
+		ID:     int(newCard.TagsID),
 		Front:  newCard.Front,
 		Back:   newCard.Back,
 		TagsID: newCard.TagsID,
@@ -205,7 +212,7 @@ func (server *Server) updateCard(c echo.Context) error {
 
 	// Use the newCard variable as needed
 
-	return c.JSON(http.StatusOK, outCard)
+	return view.RenderHelper(c, view.EditSucHadnler(outCard))
 }
 
 // upKnowCard card is know Handler
@@ -222,21 +229,21 @@ func (server *Server) upKnowCard(c echo.Context) error {
 		ID:   int64(cardId),
 		Know: true,
 	}
-	var upCard sqlc.Card
-	upCard, err = server.store.UpdateKnowards(ctx, arg)
+	var newCard sqlc.Card
+	newCard, err = server.store.UpdateKnowards(ctx, arg)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
 
 	outCard := model.CardOutput{
-		ID:     int(upCard.ID),
-		Front:  upCard.Front,
-		Back:   upCard.Back,
-		TagsID: upCard.TagsID,
-		Know:   upCard.Know,
+		ID:     int(newCard.TagsID),
+		Front:  newCard.Front,
+		Back:   newCard.Back,
+		TagsID: newCard.TagsID,
+		Know:   newCard.Know,
 	}
 
-	log.Println(outCard.Know)
+	// log.Println(outCard.Know)
 
 	cards, err := server.getCardByTagHelper(c, int(outCard.TagsID))
 	if err != nil {
