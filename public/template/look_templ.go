@@ -94,14 +94,14 @@ func LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId,
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"row\"><div class=\"col-xs-12 text-center\"><a href=\"javascript:\" class=\"btn btn-primary btn-lg flipCard\"><i class=\"fa fa-exchange\"></i> Flip Card</a> &nbsp; &nbsp; <button id=\"putButton\" class=\"btn btn-success btn-lg\" data-card-id=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"row\"><div class=\"col-xs-12 text-center\"><a href=\"javascript:\" class=\"btn btn-primary btn-lg flipCard\"><i class=\"fa fa-exchange\"></i> Flip Card</a> &nbsp; &nbsp; <button id=\"knownbtn\" class=\"btn btn-success btn-lg\" data-card-id=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(cardId))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 38, Col: 93}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 38, Col: 92}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
