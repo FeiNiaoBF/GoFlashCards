@@ -34,7 +34,7 @@ func Hello(cards []model.CardOutput) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Welcome to Go Foogo Cards<small>alphaV0.1.2</small></h1><p class=\"lead\">我的类Anki App</p><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Welcome to Go Foogo Cards<small>alphaV1.0.0</small></h1><p class=\"lead\">我的类Anki App</p><div><table class=\"table table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Front</th><th scope=\"col\">Back</th><th scope=\"col\">Know</th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -270,6 +270,7 @@ func cardLen(cards []model.CardOutput) int {
 func next(cards []model.CardOutput, oldId int) int {
 	if oldId > 0 || oldId < cardLen(cards)-1 {
 		return oldId + 1
+	} else {
+		return 0
 	}
-	return 0
 }
