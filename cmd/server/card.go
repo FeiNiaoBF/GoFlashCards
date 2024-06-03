@@ -230,7 +230,7 @@ func (server *Server) upKnowCard(c echo.Context) error {
 	ctx := c.Request().Context()
 
 	id := c.Param("id")
-	log.Println(id)
+	// log.Println(id)
 	cardId, err := strconv.Atoi(id)
 	if err != nil {
 		return server.errorRequest(c, err)
@@ -272,12 +272,14 @@ func (server *Server) deleteCard(c echo.Context) error {
 	ctx := c.Request().Context()
 	id := c.Param("id")
 
-	cardID, err := strconv.ParseInt(id, 10, 64)
+	cardID, err := strconv.Atoi(id)
+
+	log.Println(cardID)
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
 
-	err = server.store.DeleteCards(ctx, cardID)
+	err = server.store.DeleteCards(ctx, int64(cardID))
 	if err != nil {
 		return server.errorRequest(c, err)
 	}
