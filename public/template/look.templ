@@ -35,7 +35,7 @@ templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId
 				</a>
 				&nbsp;
 				&nbsp;
-				<button id="knownbtn" class="btn btn-success btn-lg" data-card-id={ strconv.Itoa(cardId) }>
+				<button id="knownbtn" class="btn btn-success btn-lg" data-card-id={ ItoS(cardId) }>
 					<i class="fa fa-check"></i>
 					I Know It
 				</button>
@@ -67,7 +67,6 @@ templ nowCard(card model.CardOutput) {
 			<div class="panel-body">
 				<div class="alignContainer">
 					<div class="alignMiddle frontText">
-						// TODO
 						<h3 class="text-center">{ card.Front }</h3>
 					</div>
 				</div>

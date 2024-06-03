@@ -42,10 +42,10 @@ templ EditHandler(card model.CardOutput) {
 					</div>
 					<div class="col-xs-6 text-right">
 						// TODO: DELETE CARD
-						<a href="#" class="btn btn-danger btn-xs">
+						<button id="deleteBtn" type="button" class="btn btn-danger btn-xs" data-card-id={ ItoS(card.ID) }>
 							<i class="fa fa-trash"></i>
 							Remove
-						</a>
+						</button>
 					</div>
 				</div>
 				<hr/>

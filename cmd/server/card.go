@@ -13,21 +13,30 @@ import (
 
 // createCards URL: /card/add method: POST
 func (server *Server) createCards(c echo.Context) error {
-	var card model.CardInput
+	// var card model.CardInput
 	ctx := c.Request().Context()
-	if err := c.Bind(&card); err != nil {
+
+	front := c.FormValue("front")
+	back := c.FormValue("back")
+	// 获取选中的标签ID
+	tagID := c.FormValue("type")
+
+	tid, err := strconv.Atoi(tagID)
+	if err != nil {
 		return server.errorRequest(c, err)
 	}
 
-	// log.Println(card)
-	arg := sqlc.CreateCardsParams{
-		Front:  card.Front,
-		Back:   card.Back,
-		TagsID: card.TagsID,
-	}
-	// log.Println(arg)
+	log.Printf("tag_id:%d", tid)
 
-	_, err := server.store.CreateCards(ctx, arg) // Assign the result to a new variable
+	arg := sqlc.CreateCardsParams{
+		Front:  front,
+		Back:   back,
+		TagsID: int32(tid),
+	}
+
+	log.Println(arg)
+
+	_, err = server.store.CreateCards(ctx, arg) // Assign the result to a new variable
 	// log.Println(newCard)
 	if err != nil {
 		// Handle the error
@@ -42,6 +51,7 @@ func (server *Server) createCards(c echo.Context) error {
 		return server.errorRequest(c, err)
 	}
 	return view.RenderHelper(c, view.AddCardHandler(outCard, outTags))
+	// return c.JSON(http.StatusOK, carddd)
 }
 
 // getAllCards URL: /card:id method: GET

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1717048159374,
@@ -96,6 +96,14 @@
                 {
                     "date": 1717317368949,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,18 @@\n+package model\n+\n+type CardInput struct {\n+\tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n+}\n+\n+type CardOutput struct {\n+\tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n+\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n+\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n+\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n+\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n+\t// AddTime time.Time\n+}\n"
+                },
+                {
+                    "date": 1717391301888,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,21 +15,4 @@\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n \t// AddTime time.Time\n }\n-package model\n-\n-type CardInput struct {\n-\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n-\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n-\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n-}\n-\n-type CardOutput struct {\n-\tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n-\tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n-\tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n-\tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n-\tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n-\t// AddTime time.Time\n-}\n"
+                },
+                {
+                    "date": 1717392130015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package model\n \n type CardInput struct {\n-\tID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n+\t// ID     int    `json:\"id\" query:\"id\" form:\"id\" validate:\"required\"`\n \tFront  string `json:\"front\" query:\"front\" form:\"front\" validate:\"required\"`\n \tBack   string `json:\"back\" query:\"back\" form:\"back\" validate:\"required\"`\n \tTagsID int32  `json:\"tags_id\" query:\"tags_id\" form:\"tags_id\" validate:\"required\"`\n \tKnow   bool   `json:\"know\" query:\"know\" form:\"know\" validate:\"required\"`\n"
                 }
             ],
             "date": 1717048159374,

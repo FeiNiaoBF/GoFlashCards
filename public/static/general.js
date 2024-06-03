@@ -30,8 +30,8 @@ $(document).ready(function(){
     if ($('.editPanel').length != 0) {
 
         function checkit() {
-            var checkedVal = $('input[name=type]:checked').val();
-            var checkedId = $('input[name=type]:checked').attr("id");
+            var checkedVal = $('input[name=tags_id]:checked').val()
+            var checkedId = $('input[name=tags_id]:checked').attr('id')
             if (checkedVal === undefined) {
                 // hide the fields
                 $('.fieldFront').hide();
