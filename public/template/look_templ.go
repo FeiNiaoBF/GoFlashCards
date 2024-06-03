@@ -111,7 +111,7 @@ func LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId,
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 templ.SafeURL = templ.URL(nextCard(tagId, cardId, cards))
+			var templ_7745c5c3_Var6 templ.SafeURL = templ.URL(tagCards(tagId, next(cards, cardId)))
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var6)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -217,7 +217,7 @@ func forTag(tags []model.TagOutput) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var12 templ.SafeURL = templ.URL(tagCards(index))
+			var templ_7745c5c3_Var12 templ.SafeURL = templ.URL(tagCards(index+1, 0))
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var12)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -229,7 +229,7 @@ func forTag(tags []model.TagOutput) templ.Component {
 			var templ_7745c5c3_Var13 string
 			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 91, Col: 75}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `public/template/look.templ`, Line: 91, Col: 80}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 			if templ_7745c5c3_Err != nil {
@@ -247,13 +247,13 @@ func forTag(tags []model.TagOutput) templ.Component {
 	})
 }
 
-func tagCards(tagid int) string {
-	return fmt.Sprintf("/look/tag/%d/0", tagid)
+func tagCards(tagid, cardid int) string {
+	return fmt.Sprintf("/look/tag/%d/%d", tagid, cardid)
 }
 
-func nextCard(tagid, cardid int, cards []model.CardOutput) string {
-	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
-}
+// func nextCard(tagid, cardid int, cards []model.CardOutput) string {
+// 	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
+// }
 
 func knowCard(cardid int) string {
 	return fmt.Sprintf("/card/know/%d", cardid)
@@ -271,5 +271,5 @@ func next(cards []model.CardOutput, oldId int) int {
 	if oldId > 0 || oldId < cardLen(cards)-1 {
 		return oldId + 1
 	}
-	return 1
+	return 0
 }

@@ -41,7 +41,7 @@ templ LookAllCardHandler(cards []model.CardOutput, tags []model.TagOutput, tagId
 				</button>
 				&nbsp;
 				&nbsp;
-				<a href={ templ.URL(nextCard(tagId, cardId, cards)) } class="btn btn-primary btn-lg">
+				<a href={ templ.URL(tagCards(tagId, next(cards, cardId))) } class="btn btn-primary btn-lg">
 					Next Card
 					<i class="fa fa-arrow-right"></i>
 				</a>
@@ -88,17 +88,17 @@ templ nowCard(card model.CardOutput) {
 
 templ forTag(tags []model.TagOutput) {
 	for index, tag := range tags {
-		<a href={ templ.URL(tagCards(index)) } class="btn btn-default">{ tag.Name }</a>
+		<a href={ templ.URL(tagCards(index+1, 0)) } class="btn btn-default">{ tag.Name }</a>
 	}
 }
 
-func tagCards(tagid int) string {
-	return fmt.Sprintf("/look/tag/%d/0", tagid)
+func tagCards(tagid, cardid int) string {
+	return fmt.Sprintf("/look/tag/%d/%d", tagid, cardid)
 }
 
-func nextCard(tagid, cardid int, cards []model.CardOutput) string {
-	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
-}
+// func nextCard(tagid, cardid int, cards []model.CardOutput) string {
+// 	return fmt.Sprintf("/look/tag/%d/%d", tagid, next(cards, cardid))
+// }
 
 func knowCard(cardid int) string {
 	return fmt.Sprintf("/card/know/%d", cardid)
@@ -115,6 +115,7 @@ func cardLen(cards []model.CardOutput) int {
 func next(cards []model.CardOutput, oldId int) int {
 	if oldId > 0 || oldId < cardLen(cards)-1 {
 		return oldId + 1
+	} else {
+		return 0
 	}
-	return 1
 }
