@@ -4,7 +4,6 @@ go 1.22.1
 
 require (
 	github.com/a-h/templ v0.2.707
-	github.com/gogo/protobuf v1.3.2
 	github.com/jackc/pgx/v5 v5.5.4
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/spf13/viper v1.18.2
